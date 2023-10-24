@@ -11,12 +11,12 @@ struct ContentView: View {
     @State private var str: String = ""
     
     var body: some View {
-        VStack {
-            Text("This is what you entered: \(str)")
+        List {
             TextField("Enter your birthdate", text: $str)
                 .border(.secondary)
+            Text(str)
+                .foregroundStyle(.secondary)
         }
-        .padding()
     }
 }
 
