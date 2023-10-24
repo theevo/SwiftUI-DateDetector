@@ -8,12 +8,13 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var str: String = ""
+    
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+            Text("This is what you entered: \(str)")
+            TextField("Enter your birthdate", text: $str)
+                .border(.secondary)
         }
         .padding()
     }
