@@ -11,6 +11,7 @@
 		ACBC4B212AE83557006F781D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACBC4B202AE83557006F781D /* ContentView.swift */; };
 		ACBC4B232AE83558006F781D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ACBC4B222AE83558006F781D /* Assets.xcassets */; };
 		ACBC4B262AE83558006F781D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ACBC4B252AE83558006F781D /* Preview Assets.xcassets */; };
+		ACBC4B2E2AE83A6A006F781D /* SwiftDate in Frameworks */ = {isa = PBXBuildFile; productRef = ACBC4B2D2AE83A6A006F781D /* SwiftDate */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ACBC4B2E2AE83A6A006F781D /* SwiftDate in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,6 +85,9 @@
 			dependencies = (
 			);
 			name = "SwiftUI-DateDetector";
+			packageProductDependencies = (
+				ACBC4B2D2AE83A6A006F781D /* SwiftDate */,
+			);
 			productName = "SwiftUI-DateDetector";
 			productReference = ACBC4B1B2AE83557006F781D /* SwiftUI-DateDetector.app */;
 			productType = "com.apple.product-type.application";
@@ -111,6 +116,9 @@
 				Base,
 			);
 			mainGroup = ACBC4B122AE83557006F781D;
+			packageReferences = (
+				ACBC4B2C2AE83A6A006F781D /* XCRemoteSwiftPackageReference "SwiftDate" */,
+			);
 			productRefGroup = ACBC4B1C2AE83557006F781D /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -344,6 +352,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		ACBC4B2C2AE83A6A006F781D /* XCRemoteSwiftPackageReference "SwiftDate" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/malcommac/SwiftDate.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		ACBC4B2D2AE83A6A006F781D /* SwiftDate */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = ACBC4B2C2AE83A6A006F781D /* XCRemoteSwiftPackageReference "SwiftDate" */;
+			productName = SwiftDate;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = ACBC4B132AE83557006F781D /* Project object */;
 }

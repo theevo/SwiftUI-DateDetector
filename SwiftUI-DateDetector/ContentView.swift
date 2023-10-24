@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftDate
 
 struct ContentView: View {
     @State private var dateAsString: String = ""
@@ -18,7 +19,9 @@ struct ContentView: View {
             TextField("Enter your birthdate", text: $str)
                 .border(.secondary)
                 .onChange(of: str) { oldValue, newValue in
-                    dateAsString = "December 17, 1983"
+                    if let possibleDate = newValue.toDate() {
+                        dateAsString = possibleDate.toString()
+                    }
                 }
             Text(str)
                 .foregroundStyle(.secondary)
