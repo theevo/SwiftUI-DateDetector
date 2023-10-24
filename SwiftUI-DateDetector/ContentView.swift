@@ -20,11 +20,9 @@ struct ContentView: View {
                 .border(.secondary)
                 .onChange(of: str) { oldValue, newValue in
                     if let possibleDate = newValue.toDate() {
-                        dateAsString = possibleDate.toString()
+                        dateAsString = possibleDate.toFormat("MMMM dd, yyyy")
                     }
                 }
-            Text(str)
-                .foregroundStyle(.secondary)
         }
     }
 }
