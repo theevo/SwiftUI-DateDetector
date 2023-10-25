@@ -20,6 +20,7 @@
 		ACBC4B202AE83557006F781D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		ACBC4B222AE83558006F781D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		ACBC4B252AE83558006F781D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		ACC7657A2AE9B26200FEC00C /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,6 +38,7 @@
 		ACBC4B122AE83557006F781D = {
 			isa = PBXGroup;
 			children = (
+				ACC7657A2AE9B26200FEC00C /* README.md */,
 				ACBC4B1D2AE83557006F781D /* SwiftUI-DateDetector */,
 				ACBC4B1C2AE83557006F781D /* Products */,
 			);
