@@ -9,20 +9,27 @@ import SwiftUI
 import SwiftDate
 
 struct ContentView: View {
-    @State private var dateAsString: String = ""
+    @State private var birthdateAsString: String = ""
     @State private var str: String = ""
     
     var body: some View {
         List {
-            Text(dateAsString)
+            Text(birthdateAsString)
                 .font(.largeTitle)
-            TextField("Enter your birthdate", text: $str)
+            TextField("MMDDYYYY", text: $str)
                 .border(.secondary)
                 .onChange(of: str) { oldValue, newValue in
-                    if let possibleDate = newValue.toDate() {
-                        dateAsString = possibleDate.toFormat("MMMM dd, yyyy")
+                    if let possibleDate = newValue.toDate("MMddyyyy") {
+                        birthdateAsString = possibleDate.toFormat("MMMM dd, yyyy")
+                    } else {
+                        birthdateAsString = ""
                     }
                 }
+            HStack {
+                Spacer()
+                Text("Enter your birthdate")
+                Spacer()
+            }
         }
     }
 }
