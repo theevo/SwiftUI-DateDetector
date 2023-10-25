@@ -8,10 +8,10 @@ We type faster than we can scroll.
 
 Let's type in our dates rather than spin 3 wheels.
 
-## Completed
+## ✅ Completed
 
-✅ Interprets what you type in and knows what the date value is
-✅ No need for delimiters like "-" or "."; just type the numbers for month, day, and year
+- Interprets what you type in and knows what the date value is
+- No need for delimiters like "-" or "."; just type the numbers for month, day, and year
 
 ## Ideas
 
