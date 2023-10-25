@@ -19,22 +19,28 @@ struct ContentView: View {
         List {
             Text(birthdateAsString)
                 .font(.largeTitle)
-            TextField("MMDDYYYY", text: $str)
-                .border(.secondary)
-                .onChange(of: str) { oldValue, newValue in
-                    if let possibleDate = newValue.toDate("MMddyyyy") {
-                        birthdateAsString = possibleDate.toFormat("MMMM dd, yyyy")
-                    } else {
-                        birthdateAsString = ""
-                    }
-                }
             HStack {
                 TextField("MM", text: $monthStr)
                     .textFieldStyle(DatePartStyle())
+                    .onChange(of: monthStr) { oldValue, newValue in
+                        if let _ = newValue.toDate("MM") {
+                            updateDate()
+                        }
+                    }
                 TextField("DD", text: $dayStr)
                     .textFieldStyle(DatePartStyle())
+                    .onChange(of: dayStr) { oldValue, newValue in
+                        if let _ = newValue.toDate("dd") {
+                            updateDate()
+                        }
+                    }
                 TextField("YYYY", text: $yearStr)
                     .textFieldStyle(DatePartStyle())
+                    .onChange(of: yearStr) { oldValue, newValue in
+                        if let _ = newValue.toDate("yyyy") {
+                            updateDate()
+                        }
+                    }
             }
             HStack {
                 Spacer()
@@ -42,6 +48,15 @@ struct ContentView: View {
                 Spacer()
             }
         }
+    }
+    
+    private func updateDate() {
+        let newValue = monthStr + dayStr + yearStr
+        guard newValue.count == 8,
+              let possibleDate = newValue.toDate("MMddyyyy")
+            else { return }
+        
+        birthdateAsString = possibleDate.toFormat("MMMM dd, yyyy")
     }
 }
 
