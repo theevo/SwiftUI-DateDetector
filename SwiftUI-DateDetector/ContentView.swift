@@ -9,6 +9,7 @@ import SwiftUI
 import SwiftDate
 
 struct ContentView: View {
+    @FocusState private var focus: FocusedField?
     @State private var birthdateAsString: String = ""
     @State private var str: String = ""
     @State private var monthStr: String = ""
@@ -21,20 +22,25 @@ struct ContentView: View {
                 .font(.largeTitle)
             HStack {
                 TextField("MM", text: $monthStr)
+                    .focused($focus, equals: .month)
                     .textFieldStyle(DatePartStyle())
                     .onChange(of: monthStr) { oldValue, newValue in
-                        if let _ = newValue.toDate("MM") {
+                        if newValue.count == 2 {
                             updateDate()
+                            advance()
                         }
                     }
                 TextField("DD", text: $dayStr)
+                    .focused($focus, equals: .day)
                     .textFieldStyle(DatePartStyle())
                     .onChange(of: dayStr) { oldValue, newValue in
-                        if let _ = newValue.toDate("dd") {
+                        if newValue.count == 2 {
                             updateDate()
+                            advance()
                         }
                     }
                 TextField("YYYY", text: $yearStr)
+                    .focused($focus, equals: .year)
                     .textFieldStyle(DatePartStyle())
                     .onChange(of: yearStr) { oldValue, newValue in
                         if let _ = newValue.toDate("yyyy") {
@@ -50,6 +56,20 @@ struct ContentView: View {
         }
     }
     
+    private func advance() {
+        switch focus {
+        case .month:
+            focus = .day
+        case .day:
+            focus = .year
+        case .year:
+            // do nothing
+            print("reached year field")
+        case .none:
+            print("nothing to do")
+        }
+    }
+    
     private func updateDate() {
         let newValue = monthStr + dayStr + yearStr
         guard newValue.count == 8,
@@ -57,6 +77,10 @@ struct ContentView: View {
             else { return }
         
         birthdateAsString = possibleDate.toFormat("MMMM dd, yyyy")
+    }
+    
+    enum FocusedField {
+        case month, day, year
     }
 }
 
