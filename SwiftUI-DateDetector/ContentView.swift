@@ -74,9 +74,23 @@ struct ContentView: View {
         let newValue = monthStr + dayStr + yearStr
         guard newValue.count == 8,
               let possibleDate = newValue.toDate("MMddyyyy")
-            else { return }
+        else {
+            if !monthStr.isEmpty, dayStr.isEmpty, yearStr.isEmpty {
+                updateOnlyMonth()
+            }
+            return
+        }
         
         birthdateAsString = possibleDate.toFormat("MMMM dd, yyyy")
+    }
+    
+    private func updateOnlyMonth() {
+        let newValue = monthStr
+        guard newValue.count == 2,
+              let possibleDate = newValue.toDate("MM")
+        else { return }
+        
+        birthdateAsString = possibleDate.toFormat("MMMM")
     }
     
     enum FocusedField {
