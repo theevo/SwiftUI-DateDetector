@@ -27,7 +27,7 @@ struct ContentView: View {
                     .onChange(of: monthStr) { oldValue, newValue in
                         if newValue.count == 2 {
                             updateDate()
-                            advance()
+                            advanceFocus()
                         }
                     }
                 TextField("DD", text: $dayStr)
@@ -36,7 +36,7 @@ struct ContentView: View {
                     .onChange(of: dayStr) { oldValue, newValue in
                         if newValue.count == 2 {
                             updateDate()
-                            advance()
+                            advanceFocus()
                         }
                     }
                 TextField("YYYY", text: $yearStr)
@@ -56,7 +56,7 @@ struct ContentView: View {
         }
     }
     
-    private func advance() {
+    private func advanceFocus() {
         switch focus {
         case .month:
             focus = .day
