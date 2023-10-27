@@ -23,26 +23,20 @@ struct ContentView: View {
                 TextField("MM", text: $monthStr)
                     .focused($focus, equals: .month)
                     .textFieldStyle(DatePartStyle())
-                    .onChange(of: monthStr) { oldValue, newValue in
-                        if newValue.count == 2 {
-                            previewDate()
-                        }
+                    .onChange(of: monthStr) {
+                        previewDate()
                     }
                 TextField("DD", text: $dayStr)
                     .focused($focus, equals: .day)
                     .textFieldStyle(DatePartStyle())
-                    .onChange(of: dayStr) { oldValue, newValue in
-                        if newValue.count == 2 {
-                            previewDate()
-                        }
+                    .onChange(of: dayStr) {
+                        previewDate()
                     }
                 TextField("YYYY", text: $yearStr)
                     .focused($focus, equals: .year)
                     .textFieldStyle(DatePartStyle())
-                    .onChange(of: yearStr) { oldValue, newValue in
-                        if let _ = newValue.toDate("yyyy") {
-                            previewDate()
-                        }
+                    .onChange(of: yearStr) {
+                        previewDate()
                     }
             }
             HStack {
@@ -110,7 +104,8 @@ struct ContentView: View {
     }
     
     private func isValidDay() -> Bool {
-        if (1...31).contains(Int(dayStr) ?? 0) {
+        if dayStr.count == 2,
+           (1...31).contains(Int(dayStr) ?? 0) {
             return true
         } else {
             print("\(dayStr) is an invalid day")
@@ -119,7 +114,8 @@ struct ContentView: View {
     }
     
     private func isValidMonth() -> Bool {
-        if (1...12).contains(Int(monthStr) ?? 0) {
+        if monthStr.count == 2,
+           (1...12).contains(Int(monthStr) ?? 0) {
             return true
         } else {
             print("\(monthStr) is an invalid month")
@@ -128,7 +124,8 @@ struct ContentView: View {
     }
     
     private func isValidYear() -> Bool {
-        if Int(yearStr) ?? 0 > 0 {
+        if yearStr.count == 4,
+           Int(yearStr) ?? 0 > 0 {
             return true
         } else {
             print("\(yearStr) is an invalid year")
