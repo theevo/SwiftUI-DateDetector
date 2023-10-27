@@ -11,7 +11,6 @@ import SwiftDate
 struct ContentView: View {
     @FocusState private var focus: FocusedField?
     @State private var birthdateAsString: String = ""
-    @State private var str: String = ""
     @State private var monthStr: String = ""
     @State private var dayStr: String = ""
     @State private var yearStr: String = ""
