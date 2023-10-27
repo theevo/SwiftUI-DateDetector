@@ -56,6 +56,8 @@ struct ContentView: View {
     }
     
     private func advanceFocus() {
+        guard isValid() else { return }
+        
         switch focus {
         case .month:
             focus = .day
@@ -90,6 +92,46 @@ struct ContentView: View {
         else { return }
         
         birthdateAsString = possibleDate.toFormat("MMMM")
+    }
+    
+    private func isValidDay() -> Bool {
+        if (1...31).contains(Int(dayStr) ?? 0) {
+            return true
+        } else {
+            print("\(dayStr) is an invalid day")
+            return false
+        }
+    }
+    
+    private func isValidMonth() -> Bool {
+        if (1...12).contains(Int(monthStr) ?? 0) {
+            return true
+        } else {
+            print("\(monthStr) is an invalid month")
+            return false
+        }
+    }
+    
+    private func isValidYear() -> Bool {
+        if Int(yearStr) ?? 0 > 0 {
+            return true
+        } else {
+            print("\(yearStr) is an invalid year")
+            return false
+        }
+    }
+    
+    private func isValid() -> Bool {
+        switch focus {
+        case .month:
+            return isValidMonth()
+        case .day:
+            return isValidDay()
+        case .year:
+            return isValidYear()
+        case .none:
+            return false
+        }
     }
     
     enum FocusedField {
