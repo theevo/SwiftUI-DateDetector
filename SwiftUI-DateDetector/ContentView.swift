@@ -75,17 +75,20 @@ struct ContentView: View {
     }
     
     private func updateDate() {
+        if !monthStr.isEmpty, dayStr.isEmpty, yearStr.isEmpty {
+            updateOnlyMonth()
+        } else if !monthStr.isEmpty, !dayStr.isEmpty, yearStr.isEmpty {
+            updateMonthAndDay()
+        } else {
+            updateEntireDate()
+        }
+    }
+    
+    private func updateEntireDate() {
         let newValue = monthStr + dayStr + yearStr
         guard newValue.count == 8,
               let possibleDate = newValue.toDate("MMddyyyy")
-        else {
-            if !monthStr.isEmpty, dayStr.isEmpty, yearStr.isEmpty {
-                updateOnlyMonth()
-            } else if !monthStr.isEmpty, !dayStr.isEmpty, yearStr.isEmpty {
-                updateMonthAndDay()
-            }
-            return
-        }
+        else { return }
         
         birthdateAsString = possibleDate.toFormat("MMMM dd, yyyy")
     }
