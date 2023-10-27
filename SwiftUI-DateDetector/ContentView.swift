@@ -25,8 +25,7 @@ struct ContentView: View {
                     .textFieldStyle(DatePartStyle())
                     .onChange(of: monthStr) { oldValue, newValue in
                         if newValue.count == 2 {
-                            updateDate()
-                            advanceFocus()
+                            previewDate()
                         }
                     }
                 TextField("DD", text: $dayStr)
@@ -34,8 +33,7 @@ struct ContentView: View {
                     .textFieldStyle(DatePartStyle())
                     .onChange(of: dayStr) { oldValue, newValue in
                         if newValue.count == 2 {
-                            updateDate()
-                            advanceFocus()
+                            previewDate()
                         }
                     }
                 TextField("YYYY", text: $yearStr)
@@ -43,7 +41,7 @@ struct ContentView: View {
                     .textFieldStyle(DatePartStyle())
                     .onChange(of: yearStr) { oldValue, newValue in
                         if let _ = newValue.toDate("yyyy") {
-                            updateDate()
+                            previewDate()
                         }
                     }
             }
@@ -56,8 +54,6 @@ struct ContentView: View {
     }
     
     private func advanceFocus() {
-        guard isValid() else { return }
-        
         switch focus {
         case .month:
             focus = .day
@@ -71,6 +67,13 @@ struct ContentView: View {
         }
     }
     
+    private func previewDate() {
+        guard isValid() else { return }
+        
+        updateDate()
+        advanceFocus()
+    }
+    
     private func updateDate() {
         let newValue = monthStr + dayStr + yearStr
         guard newValue.count == 8,
@@ -78,11 +81,20 @@ struct ContentView: View {
         else {
             if !monthStr.isEmpty, dayStr.isEmpty, yearStr.isEmpty {
                 updateOnlyMonth()
+            } else if !monthStr.isEmpty, !dayStr.isEmpty, yearStr.isEmpty {
+                updateMonthAndDay()
             }
             return
         }
         
         birthdateAsString = possibleDate.toFormat("MMMM dd, yyyy")
+    }
+    
+    private func updateMonthAndDay() {
+        let newValue = monthStr + dayStr
+        guard let possibleDate = newValue.toDate("MMdd") else { return }
+        
+        birthdateAsString = possibleDate.toFormat("MMMM dd")
     }
     
     private func updateOnlyMonth() {
@@ -136,6 +148,8 @@ struct ContentView: View {
     
     enum FocusedField {
         case month, day, year
+        
+        // TODO: - make isValid -> Bool a computed property
     }
 }
 
