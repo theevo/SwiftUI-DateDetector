@@ -14,6 +14,7 @@ struct ContentView: View {
     @State private var monthStr: String = ""
     @State private var dayStr: String = ""
     @State private var yearStr: String = ""
+    @State private var fieldStyle = DatePartStyle()
     
     var body: some View {
         List {
@@ -22,7 +23,7 @@ struct ContentView: View {
             HStack {
                 TextField("MM", text: $monthStr)
                     .focused($focus, equals: .month)
-                    .textFieldStyle(DatePartStyle())
+                    .textFieldStyle(fieldStyle)
                     .onChange(of: monthStr) {
                         previewDate()
                     }
@@ -116,9 +117,11 @@ struct ContentView: View {
     private func isValidMonth() -> Bool {
         if monthStr.count == 2,
            (1...12).contains(Int(monthStr) ?? 0) {
+            fieldStyle = DatePartStyle(color: .secondary)
             return true
         } else {
             print("\(monthStr) is an invalid month")
+            fieldStyle = DatePartStyle(color: .red)
             return false
         }
     }
@@ -154,9 +157,11 @@ struct ContentView: View {
 }
 
 struct DatePartStyle: TextFieldStyle {
+    var color: Color?
+    
     func _body(configuration: TextField<Self._Label>) -> some View {
         configuration
-            .border(.secondary)
+            .border(color ?? .secondary)
             .keyboardType(.numberPad)
             .multilineTextAlignment(.center)
             .font(.system(size: 24))
