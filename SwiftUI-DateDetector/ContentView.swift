@@ -16,6 +16,7 @@ struct ContentView: View {
     @State private var yearStr: String = ""
     @State private var monthFieldStyle = DatePartStyle()
     @State private var dayFieldStyle = DatePartStyle()
+    @State private var yearFieldStyle = DatePartStyle()
     
     var body: some View {
         List {
@@ -36,7 +37,7 @@ struct ContentView: View {
                     }
                 TextField("YYYY", text: $yearStr)
                     .focused($focus, equals: .year)
-                    .textFieldStyle(DatePartStyle())
+                    .textFieldStyle(yearFieldStyle)
                     .onChange(of: yearStr) {
                         previewDate()
                     }
@@ -80,12 +81,15 @@ struct ContentView: View {
         }
     }
     
+    // TODO: - what if you could make the year display even when a single digit for year is provided? the toDate() parameter will grow and shrink in size with the user's input? single digit year would yield format "MMddy"
+    
     private func updateEntireDate() {
         let newValue = monthStr + dayStr + yearStr
         guard newValue.count == 8,
               let possibleDate = newValue.toDate("MMddyyyy")
         else { return }
         
+        yearFieldStyle = DatePartStyle(color: .green)
         birthdateAsString = possibleDate.toFormat("MMMM dd, yyyy")
     }
     
@@ -135,6 +139,7 @@ struct ContentView: View {
             return true
         } else {
             print("\(yearStr) is an invalid year")
+            yearFieldStyle = DatePartStyle(color: .red)
             return false
         }
     }
