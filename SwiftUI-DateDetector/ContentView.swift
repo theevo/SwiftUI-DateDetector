@@ -117,7 +117,7 @@ struct ContentView: View {
     private func isValidMonth() -> Bool {
         if monthStr.count == 2,
            (1...12).contains(Int(monthStr) ?? 0) {
-            fieldStyle = DatePartStyle(color: .secondary)
+            fieldStyle = DatePartStyle(color: .green)
             return true
         } else {
             print("\(monthStr) is an invalid month")
