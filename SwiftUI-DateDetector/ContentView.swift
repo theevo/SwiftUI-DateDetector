@@ -15,6 +15,7 @@ struct ContentView: View {
     @State private var dayStr: String = ""
     @State private var yearStr: String = ""
     @State private var monthFieldStyle = DatePartStyle()
+    @State private var dayFieldStyle = DatePartStyle()
     
     var body: some View {
         List {
@@ -29,7 +30,7 @@ struct ContentView: View {
                     }
                 TextField("DD", text: $dayStr)
                     .focused($focus, equals: .day)
-                    .textFieldStyle(DatePartStyle())
+                    .textFieldStyle(dayFieldStyle)
                     .onChange(of: dayStr) {
                         previewDate()
                     }
@@ -107,9 +108,11 @@ struct ContentView: View {
     private func isValidDay() -> Bool {
         if dayStr.count == 2,
            (1...31).contains(Int(dayStr) ?? 0) {
+            dayFieldStyle = DatePartStyle(color: .green)
             return true
         } else {
             print("\(dayStr) is an invalid day")
+            dayFieldStyle = DatePartStyle(color: .red)
             return false
         }
     }
