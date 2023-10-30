@@ -10,10 +10,10 @@ import SwiftDate
 
 struct ContentView: View {
     @FocusState private var focus: FocusedField?
+    @StateObject private var viewModel = DateViewModel()
+    
     @State private var birthdateAsString: String = ""
-    @State private var monthStr: String = ""
-    @State private var dayStr: String = ""
-    @State private var yearStr: String = ""
+    
     @State private var monthFieldStyle = DatePartStyle()
     @State private var dayFieldStyle = DatePartStyle()
     @State private var yearFieldStyle = DatePartStyle()
@@ -26,22 +26,22 @@ struct ContentView: View {
             Text(birthdateAsString)
                 .font(.largeTitle)
             HStack {
-                TextField("MM", text: $monthStr)
+                TextField("MM", text: $viewModel.monthStr)
                     .focused($focus, equals: .month)
                     .textFieldStyle(monthFieldStyle)
-                    .onChange(of: monthStr) {
+                    .onChange(of: viewModel.monthStr) {
                         previewDate()
                     }
-                TextField("DD", text: $dayStr)
+                TextField("DD", text: $viewModel.dayStr)
                     .focused($focus, equals: .day)
                     .textFieldStyle(dayFieldStyle)
-                    .onChange(of: dayStr) {
+                    .onChange(of: viewModel.dayStr) {
                         previewDate()
                     }
-                TextField("YYYY", text: $yearStr)
+                TextField("YYYY", text: $viewModel.yearStr)
                     .focused($focus, equals: .year)
                     .textFieldStyle(yearFieldStyle)
-                    .onChange(of: yearStr) {
+                    .onChange(of: viewModel.yearStr) {
                         previewDate()
                     }
             }
@@ -102,7 +102,7 @@ struct ContentView: View {
     }
     
     private func updateEntireDate() {
-        let newValue = monthStr + dayStr + yearStr
+        let newValue = viewModel.monthStr + viewModel.dayStr + viewModel.yearStr
         guard newValue.count == 8,
               let possibleDate = newValue.toDate("MMddyyyy")
         else { return }
@@ -111,14 +111,14 @@ struct ContentView: View {
     }
     
     private func updateMonthAndDay() {
-        let newValue = monthStr + dayStr
+        let newValue = viewModel.monthStr + viewModel.dayStr
         guard let possibleDate = newValue.toDate("MMdd") else { return }
         
         birthdateAsString = possibleDate.toFormat("MMMM dd")
     }
     
     private func updateOnlyMonth() {
-        let newValue = monthStr
+        let newValue = viewModel.monthStr
         guard newValue.count == 2,
               let possibleDate = newValue.toDate("MM")
         else { return }
@@ -127,22 +127,22 @@ struct ContentView: View {
     }
     
     private func validityOfDay() -> FieldValidity {
-        if dayStr.isEmpty {
+        if viewModel.dayStr.isEmpty {
             return .Empty
-        } else if dayStr.count == 2,
-           (1...31).contains(Int(dayStr) ?? 0) {
+        } else if viewModel.dayStr.count == 2,
+                  (1...31).contains(Int(viewModel.dayStr) ?? 0) {
             return .Valid
         } else {
-            print("\(dayStr) is an invalid day")
+            print("\(viewModel.dayStr) is an invalid day")
             return .Invalid
         }
     }
     
     private func validityOfMonth() -> FieldValidity {
-        if monthStr.isEmpty {
+        if viewModel.monthStr.isEmpty {
             return .Empty
-        } else if monthStr.count == 2,
-           (1...12).contains(Int(monthStr) ?? 0) {
+        } else if viewModel.monthStr.count == 2,
+                  (1...12).contains(Int(viewModel.monthStr) ?? 0) {
             return .Valid
         } else {
             return .Invalid
@@ -150,13 +150,13 @@ struct ContentView: View {
     }
     
     private func validityOfYear() -> FieldValidity {
-        if yearStr.isEmpty {
+        if viewModel.yearStr.isEmpty {
             return .Empty
-        } else if yearStr.count == 4,
-           Int(yearStr) ?? 0 > 0 {
+        } else if viewModel.yearStr.count == 4,
+                  Int(viewModel.yearStr) ?? 0 > 0 {
             return .Valid
         } else {
-            print("\(yearStr) is an invalid year")
+            print("\(viewModel.yearStr) is an invalid year")
             return .Invalid
         }
     }
@@ -193,6 +193,14 @@ struct ContentView: View {
                 .red
             }
         }
+    }
+}
+
+extension ContentView {
+    @MainActor class DateViewModel: ObservableObject {
+        @Published var monthStr: String = ""
+        @Published var dayStr: String = ""
+        @Published var yearStr: String = ""
     }
 }
 
