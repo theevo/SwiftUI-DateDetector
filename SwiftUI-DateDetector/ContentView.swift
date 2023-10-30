@@ -51,6 +51,8 @@ struct ContentView: View {
     }
     
     private func advanceFocus() {
+        guard isValid() else { return }
+        
         switch focus {
         case .month:
             focus = .day
@@ -65,19 +67,20 @@ struct ContentView: View {
     }
     
     private func previewDate() {
-        guard isValid() else { return }
-        
         updateDate()
         advanceFocus()
     }
     
     private func updateDate() {
-        if !monthStr.isEmpty, dayStr.isEmpty, yearStr.isEmpty {
+        switch (isValidMonth(), isValidDay(), isValidYear()) {
+        case (true, false, _):
             updateOnlyMonth()
-        } else if !monthStr.isEmpty, !dayStr.isEmpty, yearStr.isEmpty {
+        case (true, true, false):
             updateMonthAndDay()
-        } else {
+        case (true, true, true):
             updateEntireDate()
+        default:
+            print("nothing to do")
         }
     }
     
