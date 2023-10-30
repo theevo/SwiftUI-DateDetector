@@ -17,6 +17,7 @@ struct ContentView: View {
     @State private var monthFieldStyle = DatePartStyle()
     @State private var dayFieldStyle = DatePartStyle()
     @State private var yearFieldStyle = DatePartStyle()
+    @State private var monthValidityState = FieldState.Empty
     
     var body: some View {
         List {
@@ -67,17 +68,23 @@ struct ContentView: View {
     }
     
     private func previewDate() {
+        updateColors()
         updateDate()
         advanceFocus()
     }
     
+    func updateColors() {
+        monthValidityState = isValidMonth()
+        monthFieldStyle = DatePartStyle(color: monthValidityState.color)
+    }
+    
     private func updateDate() {
         switch (isValidMonth(), isValidDay(), isValidYear()) {
-        case (true, false, _):
+        case (.Valid, false, _):
             updateOnlyMonth()
-        case (true, true, false):
+        case (.Valid, true, false):
             updateMonthAndDay()
-        case (true, true, true):
+        case (.Valid, true, true):
             updateEntireDate()
         default:
             print("nothing to do")
@@ -121,15 +128,14 @@ struct ContentView: View {
         }
     }
     
-    private func isValidMonth() -> Bool {
-        if monthStr.count == 2,
+    private func isValidMonth() -> FieldState {
+        if monthStr.isEmpty {
+            return .Empty
+        } else if monthStr.count == 2,
            (1...12).contains(Int(monthStr) ?? 0) {
-            monthFieldStyle = DatePartStyle(color: .green)
-            return true
+            return .Valid
         } else {
-            print("\(monthStr) is an invalid month")
-            monthFieldStyle = DatePartStyle(color: .red)
-            return false
+            return .Invalid
         }
     }
     
@@ -148,7 +154,7 @@ struct ContentView: View {
     private func isValid() -> Bool {
         switch focus {
         case .month:
-            return isValidMonth()
+            return isValidMonth() == .Valid
         case .day:
             return isValidDay()
         case .year:
@@ -162,6 +168,21 @@ struct ContentView: View {
         case month, day, year
         
         // TODO: - make method isValid(_ string:) -> Bool
+    }
+    
+    enum FieldState {
+        case Empty, Valid, Invalid
+        
+        var color: Color {
+            switch self {
+            case .Empty:
+                .secondary
+            case .Valid:
+                .green
+            case .Invalid:
+                .red
+            }
+        }
     }
 }
 
