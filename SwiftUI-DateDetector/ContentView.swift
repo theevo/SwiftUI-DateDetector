@@ -17,9 +17,9 @@ struct ContentView: View {
     @State private var monthFieldStyle = DatePartStyle()
     @State private var dayFieldStyle = DatePartStyle()
     @State private var yearFieldStyle = DatePartStyle()
-    @State private var monthValidityState = FieldState.Empty
-    @State private var dayValidityState = FieldState.Empty
-    @State private var yearValidityState = FieldState.Empty
+    @State private var monthValidityState = FieldValidity.Empty
+    @State private var dayValidityState = FieldValidity.Empty
+    @State private var yearValidityState = FieldValidity.Empty
     
     var body: some View {
         List {
@@ -76,18 +76,18 @@ struct ContentView: View {
     }
     
     func updateColors() {
-        monthValidityState = isValidMonth()
+        monthValidityState = validityOfMonth()
         monthFieldStyle = DatePartStyle(color: monthValidityState.color)
         
-        dayValidityState = isValidDay()
+        dayValidityState = validityOfDay()
         dayFieldStyle = DatePartStyle(color: dayValidityState.color)
         
-        yearValidityState = isValidYear()
+        yearValidityState = validityOfYear()
         yearFieldStyle = DatePartStyle(color: yearValidityState.color)
     }
     
     private func updateDate() {
-        switch (isValidMonth(), isValidDay(), isValidYear()) {
+        switch (validityOfMonth(), validityOfDay(), validityOfYear()) {
         case (.Valid, .Empty, _), 
              (.Valid, .Invalid, _):
             updateOnlyMonth()
@@ -126,7 +126,7 @@ struct ContentView: View {
         birthdateAsString = possibleDate.toFormat("MMMM")
     }
     
-    private func isValidDay() -> FieldState {
+    private func validityOfDay() -> FieldValidity {
         if dayStr.isEmpty {
             return .Empty
         } else if dayStr.count == 2,
@@ -138,7 +138,7 @@ struct ContentView: View {
         }
     }
     
-    private func isValidMonth() -> FieldState {
+    private func validityOfMonth() -> FieldValidity {
         if monthStr.isEmpty {
             return .Empty
         } else if monthStr.count == 2,
@@ -149,7 +149,7 @@ struct ContentView: View {
         }
     }
     
-    private func isValidYear() -> FieldState {
+    private func validityOfYear() -> FieldValidity {
         if yearStr.isEmpty {
             return .Empty
         } else if yearStr.count == 4,
@@ -164,11 +164,11 @@ struct ContentView: View {
     private func isValid() -> Bool {
         switch focus {
         case .month:
-            return isValidMonth() == .Valid
+            return validityOfMonth() == .Valid
         case .day:
-            return isValidDay() == .Valid
+            return validityOfDay() == .Valid
         case .year:
-            return isValidYear() == .Valid
+            return validityOfYear() == .Valid
         case .none:
             return false
         }
@@ -180,7 +180,7 @@ struct ContentView: View {
         // TODO: - make method isValid(_ string:) -> Bool
     }
     
-    enum FieldState {
+    enum FieldValidity {
         case Empty, Valid, Invalid
         
         var color: Color {
