@@ -20,6 +20,7 @@ Let's type in our dates rather than spin 3 wheels.
 - validation (what if i enter a "💩🚽" or "13" for the month?)
 - internationalization
 - auto-enter leading zero for single digit month or day (ex: for 1/1/2001 user could press [1 tab 1 tab 2001])
+- what if you could make the year display even when a single digit for year is provided? the toFormat() parameter will grow and shrink in size with the user's input? single digit year would yield format "MMddy", double digit year would yield format "MMddyy", etc.
 
 
 ## Contact

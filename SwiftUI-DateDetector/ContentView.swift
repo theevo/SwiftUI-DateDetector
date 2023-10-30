@@ -81,8 +81,6 @@ struct ContentView: View {
         }
     }
     
-    // TODO: - what if you could make the year display even when a single digit for year is provided? the toDate() parameter will grow and shrink in size with the user's input? single digit year would yield format "MMddy"
-    
     private func updateEntireDate() {
         let newValue = monthStr + dayStr + yearStr
         guard newValue.count == 8,
