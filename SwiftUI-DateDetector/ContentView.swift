@@ -18,6 +18,7 @@ struct ContentView: View {
     @State private var dayFieldStyle = DatePartStyle()
     @State private var yearFieldStyle = DatePartStyle()
     @State private var monthValidityState = FieldState.Empty
+    @State private var dayValidityState = FieldState.Empty
     
     var body: some View {
         List {
@@ -76,15 +77,19 @@ struct ContentView: View {
     func updateColors() {
         monthValidityState = isValidMonth()
         monthFieldStyle = DatePartStyle(color: monthValidityState.color)
+        
+        dayValidityState = isValidDay()
+        dayFieldStyle = DatePartStyle(color: dayValidityState.color)
     }
     
     private func updateDate() {
         switch (isValidMonth(), isValidDay(), isValidYear()) {
-        case (.Valid, false, _):
+        case (.Valid, .Empty, _), 
+             (.Valid, .Invalid, _):
             updateOnlyMonth()
-        case (.Valid, true, false):
+        case (.Valid, .Valid, false):
             updateMonthAndDay()
-        case (.Valid, true, true):
+        case (.Valid, .Valid, true):
             updateEntireDate()
         default:
             print("nothing to do")
@@ -116,15 +121,15 @@ struct ContentView: View {
         birthdateAsString = possibleDate.toFormat("MMMM")
     }
     
-    private func isValidDay() -> Bool {
-        if dayStr.count == 2,
+    private func isValidDay() -> FieldState {
+        if dayStr.isEmpty {
+            return .Empty
+        } else if dayStr.count == 2,
            (1...31).contains(Int(dayStr) ?? 0) {
-            dayFieldStyle = DatePartStyle(color: .green)
-            return true
+            return .Valid
         } else {
             print("\(dayStr) is an invalid day")
-            dayFieldStyle = DatePartStyle(color: .red)
-            return false
+            return .Invalid
         }
     }
     
@@ -156,7 +161,7 @@ struct ContentView: View {
         case .month:
             return isValidMonth() == .Valid
         case .day:
-            return isValidDay()
+            return isValidDay() == .Valid
         case .year:
             return isValidYear()
         case .none:
