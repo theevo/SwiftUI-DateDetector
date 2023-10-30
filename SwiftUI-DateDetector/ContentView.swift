@@ -89,7 +89,6 @@ struct ContentView: View {
               let possibleDate = newValue.toDate("MMddyyyy")
         else { return }
         
-        yearFieldStyle = DatePartStyle(color: .green)
         birthdateAsString = possibleDate.toFormat("MMMM dd, yyyy")
     }
     
@@ -136,6 +135,7 @@ struct ContentView: View {
     private func isValidYear() -> Bool {
         if yearStr.count == 4,
            Int(yearStr) ?? 0 > 0 {
+            yearFieldStyle = DatePartStyle(color: .green)
             return true
         } else {
             print("\(yearStr) is an invalid year")
