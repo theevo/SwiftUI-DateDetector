@@ -19,6 +19,7 @@ struct ContentView: View {
     @State private var yearFieldStyle = DatePartStyle()
     @State private var monthValidityState = FieldState.Empty
     @State private var dayValidityState = FieldState.Empty
+    @State private var yearValidityState = FieldState.Empty
     
     var body: some View {
         List {
@@ -80,6 +81,9 @@ struct ContentView: View {
         
         dayValidityState = isValidDay()
         dayFieldStyle = DatePartStyle(color: dayValidityState.color)
+        
+        yearValidityState = isValidYear()
+        yearFieldStyle = DatePartStyle(color: yearValidityState.color)
     }
     
     private func updateDate() {
@@ -87,9 +91,10 @@ struct ContentView: View {
         case (.Valid, .Empty, _), 
              (.Valid, .Invalid, _):
             updateOnlyMonth()
-        case (.Valid, .Valid, false):
+        case (.Valid, .Valid, .Empty),
+             (.Valid, .Valid, .Invalid):
             updateMonthAndDay()
-        case (.Valid, .Valid, true):
+        case (.Valid, .Valid, .Valid):
             updateEntireDate()
         default:
             print("nothing to do")
@@ -144,15 +149,15 @@ struct ContentView: View {
         }
     }
     
-    private func isValidYear() -> Bool {
-        if yearStr.count == 4,
+    private func isValidYear() -> FieldState {
+        if yearStr.isEmpty {
+            return .Empty
+        } else if yearStr.count == 4,
            Int(yearStr) ?? 0 > 0 {
-            yearFieldStyle = DatePartStyle(color: .green)
-            return true
+            return .Valid
         } else {
             print("\(yearStr) is an invalid year")
-            yearFieldStyle = DatePartStyle(color: .red)
-            return false
+            return .Invalid
         }
     }
     
@@ -163,7 +168,7 @@ struct ContentView: View {
         case .day:
             return isValidDay() == .Valid
         case .year:
-            return isValidYear()
+            return isValidYear() == .Valid
         case .none:
             return false
         }
