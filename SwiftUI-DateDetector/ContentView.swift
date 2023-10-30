@@ -158,7 +158,7 @@ struct ContentView: View {
     enum FocusedField {
         case month, day, year
         
-        // TODO: - make isValid -> Bool a computed property
+        // TODO: - make method isValid(_ string:) -> Bool
     }
 }
 
