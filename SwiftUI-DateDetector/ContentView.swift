@@ -12,8 +12,6 @@ struct ContentView: View {
     @FocusState private var focus: FocusedField?
     @Bindable private var viewModel = DateViewModel()
     
-    @State private var birthdateAsString: String = ""
-    
     @State private var monthFieldStyle = DatePartStyle()
     @State private var dayFieldStyle = DatePartStyle()
     @State private var yearFieldStyle = DatePartStyle()
@@ -23,7 +21,7 @@ struct ContentView: View {
     
     var body: some View {
         List {
-            Text(birthdateAsString)
+            Text(viewModel.birthdateAsString)
                 .font(.largeTitle)
             HStack {
                 TextField("MM", text: $viewModel.monthStr)
@@ -70,8 +68,8 @@ struct ContentView: View {
     }
     
     private func clear() {
-        print("clearing '\(birthdateAsString)'")
-        birthdateAsString = ""
+        print("clearing '\(viewModel.birthdateAsString)'")
+        viewModel.birthdateAsString = ""
     }
     
     private func previewDate() {
@@ -123,9 +121,9 @@ struct ContentView: View {
         let dateToPreview = possibleDate.toFormat("MMMM dd, yyyy")
         
         if monthsMatch, daysMatch {
-            birthdateAsString = dateToPreview
+            viewModel.birthdateAsString = dateToPreview
         } else {
-            birthdateAsString = "\(dateToPreview)?"
+            viewModel.birthdateAsString = "\(dateToPreview)?"
         }
     }
     
@@ -133,7 +131,7 @@ struct ContentView: View {
         let newValue = viewModel.monthStr + viewModel.dayStr
         guard let possibleDate = newValue.toDate("MMdd") else { return }
         
-        birthdateAsString = possibleDate.toFormat("MMMM dd")
+        viewModel.birthdateAsString = possibleDate.toFormat("MMMM dd")
     }
     
     private func updateOnlyMonth() {
@@ -142,7 +140,7 @@ struct ContentView: View {
               let possibleDate = newValue.toDate("MM")
         else { return }
         
-        birthdateAsString = possibleDate.toFormat("MMMM")
+        viewModel.birthdateAsString = possibleDate.toFormat("MMMM")
     }
     
     private func validityOfDay() -> FieldValidity {
@@ -219,6 +217,7 @@ struct ContentView: View {
     var monthStr: String = ""
     var dayStr: String = ""
     var yearStr: String = ""
+    var birthdateAsString: String = ""
 }
 
 struct DatePartStyle: TextFieldStyle {
