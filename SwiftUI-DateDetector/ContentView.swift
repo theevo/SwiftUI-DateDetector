@@ -99,16 +99,13 @@ struct ContentView: View {
     var inputMonth: String = ""
     var inputDay: String = ""
     var inputYear: String = ""
-    
-    // TODO: - private set?
-    var previewBirthdate: String = ""
-    
     var monthFieldStyle = DatePartStyle()
     var dayFieldStyle = DatePartStyle()
     var yearFieldStyle = DatePartStyle()
     var monthValidityState = FieldValidity.Empty
     var dayValidityState = FieldValidity.Empty
     var yearValidityState = FieldValidity.Empty
+    private(set) var previewBirthdate: String = ""
     
     
     // MARK: - Public Methods
