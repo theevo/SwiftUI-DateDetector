@@ -85,18 +85,18 @@ struct ContentView: View {
         switch (validityOfMonth(), validityOfDay(), validityOfYear()) {
         case (.Valid, .Empty, _), 
              (.Valid, .Invalid, _):
-            updateOnlyMonth()
+            previewMonthOnly()
         case (.Valid, .Valid, .Empty),
              (.Valid, .Valid, .Invalid):
-            updateMonthAndDay()
+            previewMonthAndDay()
         case (.Valid, .Valid, .Valid):
-            updateEntireDate()
+            previewEntireDate()
         default:
             clear()
         }
     }
     
-    private func updateEntireDate() {
+    private func previewEntireDate() {
         let newValue = viewModel.inputMonth + viewModel.inputDay + viewModel.inputYear
         guard newValue.count == 8,
               let possibleDate = newValue.toDate("MMddyyyy")
@@ -119,14 +119,14 @@ struct ContentView: View {
         }
     }
     
-    private func updateMonthAndDay() {
+    private func previewMonthAndDay() {
         let newValue = viewModel.inputMonth + viewModel.inputDay
         guard let possibleDate = newValue.toDate("MMdd") else { return }
         
         viewModel.previewBirthdate = possibleDate.toFormat("MMMM dd")
     }
     
-    private func updateOnlyMonth() {
+    private func previewMonthOnly() {
         let newValue = viewModel.inputMonth
         guard newValue.count == 2,
               let possibleDate = newValue.toDate("MM")
