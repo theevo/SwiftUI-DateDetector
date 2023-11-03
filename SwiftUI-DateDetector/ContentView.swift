@@ -12,11 +12,6 @@ struct ContentView: View {
     @FocusState private var focus: FocusedField?
     @Bindable private var viewModel = DateViewModel()
     
-    
-    @State private var monthValidityState = FieldValidity.Empty
-    @State private var dayValidityState = FieldValidity.Empty
-    @State private var yearValidityState = FieldValidity.Empty
-    
     var body: some View {
         List {
             Text(viewModel.birthdateAsString)
@@ -77,14 +72,14 @@ struct ContentView: View {
     }
     
     func updateColors() {
-        monthValidityState = validityOfMonth()
-        viewModel.monthFieldStyle = DatePartStyle(color: monthValidityState.color)
+        viewModel.monthValidityState = validityOfMonth()
+        viewModel.monthFieldStyle = DatePartStyle(color: viewModel.monthValidityState.color)
         
-        dayValidityState = validityOfDay()
-        viewModel.dayFieldStyle = DatePartStyle(color: dayValidityState.color)
+        viewModel.dayValidityState = validityOfDay()
+        viewModel.dayFieldStyle = DatePartStyle(color: viewModel.dayValidityState.color)
         
-        yearValidityState = validityOfYear()
-        viewModel.yearFieldStyle = DatePartStyle(color: yearValidityState.color)
+        viewModel.yearValidityState = validityOfYear()
+        viewModel.yearFieldStyle = DatePartStyle(color: viewModel.yearValidityState.color)
     }
     
     private func updateDate() {
@@ -141,7 +136,7 @@ struct ContentView: View {
         viewModel.birthdateAsString = possibleDate.toFormat("MMMM")
     }
     
-    private func validityOfDay() -> FieldValidity {
+    private func validityOfDay() -> DateViewModel.FieldValidity {
         if viewModel.dayStr.isEmpty {
             return .Empty
         } else if viewModel.dayStr.count == 2,
@@ -153,7 +148,7 @@ struct ContentView: View {
         }
     }
     
-    private func validityOfMonth() -> FieldValidity {
+    private func validityOfMonth() -> DateViewModel.FieldValidity {
         if viewModel.monthStr.isEmpty {
             return .Empty
         } else if viewModel.monthStr.count == 2,
@@ -164,7 +159,7 @@ struct ContentView: View {
         }
     }
     
-    private func validityOfYear() -> FieldValidity {
+    private func validityOfYear() -> DateViewModel.FieldValidity {
         if viewModel.yearStr.isEmpty {
             return .Empty
         } else if viewModel.yearStr.count == 4,
@@ -194,6 +189,19 @@ struct ContentView: View {
         
         // TODO: - make method isValid(_ string:) -> Bool
     }
+}
+
+@Observable class DateViewModel {
+    var monthStr: String = ""
+    var dayStr: String = ""
+    var yearStr: String = ""
+    var birthdateAsString: String = ""
+    var monthFieldStyle = DatePartStyle()
+    var dayFieldStyle = DatePartStyle()
+    var yearFieldStyle = DatePartStyle()
+    var monthValidityState = FieldValidity.Empty
+    var dayValidityState = FieldValidity.Empty
+    var yearValidityState = FieldValidity.Empty
     
     enum FieldValidity {
         case Empty, Valid, Invalid
@@ -209,16 +217,6 @@ struct ContentView: View {
             }
         }
     }
-}
-
-@Observable class DateViewModel {
-    var monthStr: String = ""
-    var dayStr: String = ""
-    var yearStr: String = ""
-    var birthdateAsString: String = ""
-    var monthFieldStyle = DatePartStyle()
-    var dayFieldStyle = DatePartStyle()
-    var yearFieldStyle = DatePartStyle()
 }
 
 struct DatePartStyle: TextFieldStyle {
