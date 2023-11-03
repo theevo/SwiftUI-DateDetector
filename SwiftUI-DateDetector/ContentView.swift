@@ -14,25 +14,25 @@ struct ContentView: View {
     
     var body: some View {
         List {
-            Text(viewModel.birthdateAsString)
+            Text(viewModel.previewBirthdate)
                 .font(.largeTitle)
             HStack {
-                TextField("MM", text: $viewModel.monthStr)
+                TextField("MM", text: $viewModel.inputMonth)
                     .focused($focus, equals: .month)
                     .textFieldStyle(viewModel.monthFieldStyle)
-                    .onChange(of: viewModel.monthStr) {
+                    .onChange(of: viewModel.inputMonth) {
                         previewDate()
                     }
-                TextField("DD", text: $viewModel.dayStr)
+                TextField("DD", text: $viewModel.inputDay)
                     .focused($focus, equals: .day)
                     .textFieldStyle(viewModel.dayFieldStyle)
-                    .onChange(of: viewModel.dayStr) {
+                    .onChange(of: viewModel.inputDay) {
                         previewDate()
                     }
-                TextField("YYYY", text: $viewModel.yearStr)
+                TextField("YYYY", text: $viewModel.inputYear)
                     .focused($focus, equals: .year)
                     .textFieldStyle(viewModel.yearFieldStyle)
-                    .onChange(of: viewModel.yearStr) {
+                    .onChange(of: viewModel.inputYear) {
                         previewDate()
                     }
             }
@@ -61,8 +61,8 @@ struct ContentView: View {
     }
     
     private func clear() {
-        print("clearing '\(viewModel.birthdateAsString)'")
-        viewModel.birthdateAsString = ""
+        print("clearing '\(viewModel.previewBirthdate)'")
+        viewModel.previewBirthdate = ""
     }
     
     private func previewDate() {
@@ -98,7 +98,7 @@ struct ContentView: View {
     }
     
     private func updateEntireDate() {
-        let newValue = viewModel.monthStr + viewModel.dayStr + viewModel.yearStr
+        let newValue = viewModel.inputMonth + viewModel.inputDay + viewModel.inputYear
         guard newValue.count == 8,
               let possibleDate = newValue.toDate("MMddyyyy")
         else { return }
@@ -106,53 +106,53 @@ struct ContentView: View {
         let justMonth = possibleDate.toFormat("MM")
         let justDay = possibleDate.toFormat("dd")
         print(justMonth, "/", justDay)
-        let monthsMatch = justMonth == viewModel.monthStr
-        let daysMatch = justDay == viewModel.dayStr
+        let monthsMatch = justMonth == viewModel.inputMonth
+        let daysMatch = justDay == viewModel.inputDay
         print("monthsMatch =", monthsMatch)
         print("daysMatch =", daysMatch)
         
         let dateToPreview = possibleDate.toFormat("MMMM dd, yyyy")
         
         if monthsMatch, daysMatch {
-            viewModel.birthdateAsString = dateToPreview
+            viewModel.previewBirthdate = dateToPreview
         } else {
-            viewModel.birthdateAsString = "\(dateToPreview)?"
+            viewModel.previewBirthdate = "\(dateToPreview)?"
         }
     }
     
     private func updateMonthAndDay() {
-        let newValue = viewModel.monthStr + viewModel.dayStr
+        let newValue = viewModel.inputMonth + viewModel.inputDay
         guard let possibleDate = newValue.toDate("MMdd") else { return }
         
-        viewModel.birthdateAsString = possibleDate.toFormat("MMMM dd")
+        viewModel.previewBirthdate = possibleDate.toFormat("MMMM dd")
     }
     
     private func updateOnlyMonth() {
-        let newValue = viewModel.monthStr
+        let newValue = viewModel.inputMonth
         guard newValue.count == 2,
               let possibleDate = newValue.toDate("MM")
         else { return }
         
-        viewModel.birthdateAsString = possibleDate.toFormat("MMMM")
+        viewModel.previewBirthdate = possibleDate.toFormat("MMMM")
     }
     
     private func validityOfDay() -> DateViewModel.FieldValidity {
-        if viewModel.dayStr.isEmpty {
+        if viewModel.inputDay.isEmpty {
             return .Empty
-        } else if viewModel.dayStr.count == 2,
-                  (1...31).contains(Int(viewModel.dayStr) ?? 0) {
+        } else if viewModel.inputDay.count == 2,
+                  (1...31).contains(Int(viewModel.inputDay) ?? 0) {
             return .Valid
         } else {
-            print("\(viewModel.dayStr) is an invalid day")
+            print("\(viewModel.inputDay) is an invalid day")
             return .Invalid
         }
     }
     
     private func validityOfMonth() -> DateViewModel.FieldValidity {
-        if viewModel.monthStr.isEmpty {
+        if viewModel.inputMonth.isEmpty {
             return .Empty
-        } else if viewModel.monthStr.count == 2,
-                  (1...12).contains(Int(viewModel.monthStr) ?? 0) {
+        } else if viewModel.inputMonth.count == 2,
+                  (1...12).contains(Int(viewModel.inputMonth) ?? 0) {
             return .Valid
         } else {
             return .Invalid
@@ -160,13 +160,13 @@ struct ContentView: View {
     }
     
     private func validityOfYear() -> DateViewModel.FieldValidity {
-        if viewModel.yearStr.isEmpty {
+        if viewModel.inputYear.isEmpty {
             return .Empty
-        } else if viewModel.yearStr.count == 4,
-                  Int(viewModel.yearStr) ?? 0 > 0 {
+        } else if viewModel.inputYear.count == 4,
+                  Int(viewModel.inputYear) ?? 0 > 0 {
             return .Valid
         } else {
-            print("\(viewModel.yearStr) is an invalid year")
+            print("\(viewModel.inputYear) is an invalid year")
             return .Invalid
         }
     }
@@ -190,10 +190,10 @@ struct ContentView: View {
 }
 
 @Observable class DateViewModel {
-    var monthStr: String = ""
-    var dayStr: String = ""
-    var yearStr: String = ""
-    var birthdateAsString: String = ""
+    var inputMonth: String = ""
+    var inputDay: String = ""
+    var inputYear: String = ""
+    var previewBirthdate: String = ""
     var monthFieldStyle = DatePartStyle()
     var dayFieldStyle = DatePartStyle()
     var yearFieldStyle = DatePartStyle()
