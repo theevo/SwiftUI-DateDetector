@@ -21,19 +21,19 @@ struct ContentView: View {
                     .focused($focus, equals: .month)
                     .textFieldStyle(viewModel.monthFieldStyle)
                     .onChange(of: viewModel.inputMonth) {
-                        previewDate()
+                        render()
                     }
                 TextField("DD", text: $viewModel.inputDay)
                     .focused($focus, equals: .day)
                     .textFieldStyle(viewModel.dayFieldStyle)
                     .onChange(of: viewModel.inputDay) {
-                        previewDate()
+                        render()
                     }
                 TextField("YYYY", text: $viewModel.inputYear)
                     .focused($focus, equals: .year)
                     .textFieldStyle(viewModel.yearFieldStyle)
                     .onChange(of: viewModel.inputYear) {
-                        previewDate()
+                        render()
                     }
             }
             HStack {
@@ -64,9 +64,9 @@ struct ContentView: View {
         viewModel.clearPreview()
     }
     
-    private func previewDate() {
+    private func render() {
         updateColors()
-        updateDate()
+        previewDate()
         advanceFocus()
     }
     
@@ -81,7 +81,7 @@ struct ContentView: View {
         viewModel.yearFieldStyle = DatePartStyle(color: viewModel.yearValidityState.color)
     }
     
-    private func updateDate() {
+    private func previewDate() {
         switch (validityOfMonth(), validityOfDay(), validityOfYear()) {
         case (.Valid, .Empty, _), 
              (.Valid, .Invalid, _):
