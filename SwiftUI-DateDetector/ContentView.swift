@@ -12,9 +12,7 @@ struct ContentView: View {
     @FocusState private var focus: FocusedField?
     @Bindable private var viewModel = DateViewModel()
     
-    @State private var monthFieldStyle = DatePartStyle()
-    @State private var dayFieldStyle = DatePartStyle()
-    @State private var yearFieldStyle = DatePartStyle()
+    
     @State private var monthValidityState = FieldValidity.Empty
     @State private var dayValidityState = FieldValidity.Empty
     @State private var yearValidityState = FieldValidity.Empty
@@ -26,19 +24,19 @@ struct ContentView: View {
             HStack {
                 TextField("MM", text: $viewModel.monthStr)
                     .focused($focus, equals: .month)
-                    .textFieldStyle(monthFieldStyle)
+                    .textFieldStyle(viewModel.monthFieldStyle)
                     .onChange(of: viewModel.monthStr) {
                         previewDate()
                     }
                 TextField("DD", text: $viewModel.dayStr)
                     .focused($focus, equals: .day)
-                    .textFieldStyle(dayFieldStyle)
+                    .textFieldStyle(viewModel.dayFieldStyle)
                     .onChange(of: viewModel.dayStr) {
                         previewDate()
                     }
                 TextField("YYYY", text: $viewModel.yearStr)
                     .focused($focus, equals: .year)
-                    .textFieldStyle(yearFieldStyle)
+                    .textFieldStyle(viewModel.yearFieldStyle)
                     .onChange(of: viewModel.yearStr) {
                         previewDate()
                     }
@@ -80,13 +78,13 @@ struct ContentView: View {
     
     func updateColors() {
         monthValidityState = validityOfMonth()
-        monthFieldStyle = DatePartStyle(color: monthValidityState.color)
+        viewModel.monthFieldStyle = DatePartStyle(color: monthValidityState.color)
         
         dayValidityState = validityOfDay()
-        dayFieldStyle = DatePartStyle(color: dayValidityState.color)
+        viewModel.dayFieldStyle = DatePartStyle(color: dayValidityState.color)
         
         yearValidityState = validityOfYear()
-        yearFieldStyle = DatePartStyle(color: yearValidityState.color)
+        viewModel.yearFieldStyle = DatePartStyle(color: yearValidityState.color)
     }
     
     private func updateDate() {
@@ -218,6 +216,9 @@ struct ContentView: View {
     var dayStr: String = ""
     var yearStr: String = ""
     var birthdateAsString: String = ""
+    var monthFieldStyle = DatePartStyle()
+    var dayFieldStyle = DatePartStyle()
+    var yearFieldStyle = DatePartStyle()
 }
 
 struct DatePartStyle: TextFieldStyle {
