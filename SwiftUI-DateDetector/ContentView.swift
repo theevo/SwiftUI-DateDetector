@@ -60,124 +60,31 @@ struct ContentView: View {
         }
     }
     
-    private func clear() {
-        viewModel.clearPreview()
-    }
-    
     private func render() {
         updateColors()
-        previewDate()
+        viewModel.previewDate()
         advanceFocus()
     }
     
     func updateColors() {
-        viewModel.monthValidityState = validityOfMonth()
+        viewModel.monthValidityState = viewModel.validityOfMonth()
         viewModel.monthFieldStyle = DatePartStyle(color: viewModel.monthValidityState.color)
         
-        viewModel.dayValidityState = validityOfDay()
+        viewModel.dayValidityState = viewModel.validityOfDay()
         viewModel.dayFieldStyle = DatePartStyle(color: viewModel.dayValidityState.color)
         
-        viewModel.yearValidityState = validityOfYear()
+        viewModel.yearValidityState = viewModel.validityOfYear()
         viewModel.yearFieldStyle = DatePartStyle(color: viewModel.yearValidityState.color)
-    }
-    
-    private func previewDate() {
-        switch (validityOfMonth(), validityOfDay(), validityOfYear()) {
-        case (.Valid, .Empty, _), 
-             (.Valid, .Invalid, _):
-            previewMonthOnly()
-        case (.Valid, .Valid, .Empty),
-             (.Valid, .Valid, .Invalid):
-            previewMonthAndDay()
-        case (.Valid, .Valid, .Valid):
-            previewEntireDate()
-        default:
-            clear()
-        }
-    }
-    
-    private func previewEntireDate() {
-        let newValue = viewModel.inputMonth + viewModel.inputDay + viewModel.inputYear
-        guard newValue.count == 8,
-              let possibleDate = newValue.toDate("MMddyyyy")
-        else { return }
-        
-        let justMonth = possibleDate.toFormat("MM")
-        let justDay = possibleDate.toFormat("dd")
-        print(justMonth, "/", justDay)
-        let monthsMatch = justMonth == viewModel.inputMonth
-        let daysMatch = justDay == viewModel.inputDay
-        print("monthsMatch =", monthsMatch)
-        print("daysMatch =", daysMatch)
-        
-        let dateToPreview = possibleDate.toFormat("MMMM dd, yyyy")
-        
-        if monthsMatch, daysMatch {
-            viewModel.previewBirthdate = dateToPreview
-        } else {
-            viewModel.previewBirthdate = "\(dateToPreview)?"
-        }
-    }
-    
-    private func previewMonthAndDay() {
-        let newValue = viewModel.inputMonth + viewModel.inputDay
-        guard let possibleDate = newValue.toDate("MMdd") else { return }
-        
-        viewModel.previewBirthdate = possibleDate.toFormat("MMMM dd")
-    }
-    
-    private func previewMonthOnly() {
-        let newValue = viewModel.inputMonth
-        guard newValue.count == 2,
-              let possibleDate = newValue.toDate("MM")
-        else { return }
-        
-        viewModel.previewBirthdate = possibleDate.toFormat("MMMM")
-    }
-    
-    private func validityOfDay() -> DateViewModel.FieldValidity {
-        if viewModel.inputDay.isEmpty {
-            return .Empty
-        } else if viewModel.inputDay.count == 2,
-                  (1...31).contains(Int(viewModel.inputDay) ?? 0) {
-            return .Valid
-        } else {
-            print("\(viewModel.inputDay) is an invalid day")
-            return .Invalid
-        }
-    }
-    
-    private func validityOfMonth() -> DateViewModel.FieldValidity {
-        if viewModel.inputMonth.isEmpty {
-            return .Empty
-        } else if viewModel.inputMonth.count == 2,
-                  (1...12).contains(Int(viewModel.inputMonth) ?? 0) {
-            return .Valid
-        } else {
-            return .Invalid
-        }
-    }
-    
-    private func validityOfYear() -> DateViewModel.FieldValidity {
-        if viewModel.inputYear.isEmpty {
-            return .Empty
-        } else if viewModel.inputYear.count == 4,
-                  Int(viewModel.inputYear) ?? 0 > 0 {
-            return .Valid
-        } else {
-            print("\(viewModel.inputYear) is an invalid year")
-            return .Invalid
-        }
     }
     
     private func isValid() -> Bool {
         switch focus {
         case .month:
-            return validityOfMonth() == .Valid
+            return viewModel.validityOfMonth() == .Valid
         case .day:
-            return validityOfDay() == .Valid
+            return viewModel.validityOfDay() == .Valid
         case .year:
-            return validityOfYear() == .Valid
+            return viewModel.validityOfYear() == .Valid
         case .none:
             return false
         }
@@ -192,7 +99,10 @@ struct ContentView: View {
     var inputMonth: String = ""
     var inputDay: String = ""
     var inputYear: String = ""
+    
+    // TODO: - private set?
     var previewBirthdate: String = ""
+    
     var monthFieldStyle = DatePartStyle()
     var dayFieldStyle = DatePartStyle()
     var yearFieldStyle = DatePartStyle()
@@ -200,11 +110,107 @@ struct ContentView: View {
     var dayValidityState = FieldValidity.Empty
     var yearValidityState = FieldValidity.Empty
     
+    
+    // MARK: - Public Methods
+    
     func clearPreview() {
         print("clearing '\(previewBirthdate)'")
         previewBirthdate = ""
     }
     
+    func previewDate() {
+        switch (validityOfMonth(), validityOfDay(), validityOfYear()) {
+        case (.Valid, .Empty, _),
+            (.Valid, .Invalid, _):
+            previewMonthOnly()
+        case (.Valid, .Valid, .Empty),
+            (.Valid, .Valid, .Invalid):
+            previewMonthAndDay()
+        case (.Valid, .Valid, .Valid):
+            previewEntireDate()
+        default:
+            clearPreview()
+        }
+    }
+    
+    func validityOfDay() -> DateViewModel.FieldValidity {
+        if inputDay.isEmpty {
+            return .Empty
+        } else if inputDay.count == 2,
+                  (1...31).contains(Int(inputDay) ?? 0) {
+            return .Valid
+        } else {
+            print("\(inputDay) is an invalid day")
+            return .Invalid
+        }
+    }
+    
+    func validityOfMonth() -> DateViewModel.FieldValidity {
+        if inputMonth.isEmpty {
+            return .Empty
+        } else if inputMonth.count == 2,
+                  (1...12).contains(Int(inputMonth) ?? 0) {
+            return .Valid
+        } else {
+            return .Invalid
+        }
+    }
+    
+    func validityOfYear() -> DateViewModel.FieldValidity {
+        if inputYear.isEmpty {
+            return .Empty
+        } else if inputYear.count == 4,
+                  Int(inputYear) ?? 0 > 0 {
+            return .Valid
+        } else {
+            print("\(inputYear) is an invalid year")
+            return .Invalid
+        }
+    }
+    
+    // MARK: - Private
+    
+    private func previewEntireDate() {
+        let newValue = inputMonth + inputDay + inputYear
+        guard newValue.count == 8,
+              let possibleDate = newValue.toDate("MMddyyyy")
+        else { return }
+        
+        let justMonth = possibleDate.toFormat("MM")
+        let justDay = possibleDate.toFormat("dd")
+        print(justMonth, "/", justDay)
+        let monthsMatch = justMonth == inputMonth
+        let daysMatch = justDay == inputDay
+        print("monthsMatch =", monthsMatch)
+        print("daysMatch =", daysMatch)
+        
+        let dateToPreview = possibleDate.toFormat("MMMM dd, yyyy")
+        
+        if monthsMatch, daysMatch {
+            previewBirthdate = dateToPreview
+        } else {
+            previewBirthdate = "\(dateToPreview)?"
+        }
+    }
+    
+    private func previewMonthAndDay() {
+        let newValue = inputMonth + inputDay
+        guard let possibleDate = newValue.toDate("MMdd") else { return }
+        
+        previewBirthdate = possibleDate.toFormat("MMMM dd")
+    }
+    
+    private func previewMonthOnly() {
+        let newValue = inputMonth
+        guard newValue.count == 2,
+              let possibleDate = newValue.toDate("MM")
+        else { return }
+        
+        previewBirthdate = possibleDate.toFormat("MMMM")
+    }
+}
+
+extension DateViewModel {
     enum FieldValidity {
         case Empty, Valid, Invalid
         
