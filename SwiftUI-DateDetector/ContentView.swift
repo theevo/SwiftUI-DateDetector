@@ -61,8 +61,7 @@ struct ContentView: View {
     }
     
     private func clear() {
-        print("clearing '\(viewModel.previewBirthdate)'")
-        viewModel.previewBirthdate = ""
+        viewModel.clearPreview()
     }
     
     private func previewDate() {
@@ -200,6 +199,11 @@ struct ContentView: View {
     var monthValidityState = FieldValidity.Empty
     var dayValidityState = FieldValidity.Empty
     var yearValidityState = FieldValidity.Empty
+    
+    func clearPreview() {
+        print("clearing '\(previewBirthdate)'")
+        previewBirthdate = ""
+    }
     
     enum FieldValidity {
         case Empty, Valid, Invalid
