@@ -69,6 +69,11 @@ struct ContentView: View {
         }
     }
     
+    private func clear() {
+        print("clearing '\(birthdateAsString)'")
+        birthdateAsString = ""
+    }
+    
     private func previewDate() {
         updateColors()
         updateDate()
@@ -97,7 +102,7 @@ struct ContentView: View {
         case (.Valid, .Valid, .Valid):
             updateEntireDate()
         default:
-            print("nothing to do")
+            clear()
         }
     }
     
