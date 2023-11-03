@@ -112,7 +112,21 @@ struct ContentView: View {
               let possibleDate = newValue.toDate("MMddyyyy")
         else { return }
         
-        birthdateAsString = possibleDate.toFormat("MMMM dd, yyyy")
+        let justMonth = possibleDate.toFormat("MM")
+        let justDay = possibleDate.toFormat("dd")
+        print(justMonth, "/", justDay)
+        let monthsMatch = justMonth == viewModel.monthStr
+        let daysMatch = justDay == viewModel.dayStr
+        print("monthsMatch =", monthsMatch)
+        print("daysMatch =", daysMatch)
+        
+        let dateToPreview = possibleDate.toFormat("MMMM dd, yyyy")
+        
+        if monthsMatch, daysMatch {
+            birthdateAsString = dateToPreview
+        } else {
+            birthdateAsString = "\(dateToPreview)?"
+        }
     }
     
     private func updateMonthAndDay() {
