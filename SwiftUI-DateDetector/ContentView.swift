@@ -10,7 +10,7 @@ import SwiftDate
 
 struct ContentView: View {
     @FocusState private var focus: FocusedField?
-    @StateObject private var viewModel = DateViewModel()
+    @Bindable private var viewModel = DateViewModel()
     
     @State private var birthdateAsString: String = ""
     
@@ -215,12 +215,10 @@ struct ContentView: View {
     }
 }
 
-extension ContentView {
-    @MainActor class DateViewModel: ObservableObject {
-        @Published var monthStr: String = ""
-        @Published var dayStr: String = ""
-        @Published var yearStr: String = ""
-    }
+@Observable class DateViewModel {
+    var monthStr: String = ""
+    var dayStr: String = ""
+    var yearStr: String = ""
 }
 
 struct DatePartStyle: TextFieldStyle {
