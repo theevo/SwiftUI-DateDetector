@@ -45,7 +45,7 @@ struct ContentView: View {
     }
     
     private func advanceFocus() {
-        guard canAdvance() else { return }
+        guard viewModel.canAdvance(from: focus) else { return }
         
         switch focus {
         case .month:
@@ -64,20 +64,6 @@ struct ContentView: View {
         viewModel.updateColors()
         viewModel.previewDate()
         advanceFocus()
-    }
-    
-    // TODO: - move this to View Model
-    private func canAdvance() -> Bool {
-        switch focus {
-        case .month:
-            return viewModel.monthValidity.isValid
-        case .day:
-            return viewModel.dayValidity.isValid
-        case .year:
-            return viewModel.yearValidity.isValid
-        case .none:
-            return false
-        }
     }
     
     enum FocusedField {
@@ -111,6 +97,19 @@ struct ContentView: View {
     
     
     // MARK: - Public Methods
+    
+    public func canAdvance(from focus: ContentView.FocusedField?) -> Bool {
+        switch focus {
+        case .month:
+            return monthValidity.isValid
+        case .day:
+            return dayValidity.isValid
+        case .year:
+            return yearValidity.isValid
+        case .none:
+            return false
+        }
+    }
     
     func clearPreview() {
         print("clearing '\(previewBirthdate)'")
@@ -148,17 +147,9 @@ struct ContentView: View {
               let possibleDate = newValue.toDate("MMddyyyy")
         else { return }
         
-        let justMonth = possibleDate.toFormat("MM")
-        let justDay = possibleDate.toFormat("dd")
-        print(justMonth, "/", justDay)
-        let monthsMatch = justMonth == inputMonth
-        let daysMatch = justDay == inputDay
-        print("monthsMatch =", monthsMatch)
-        print("daysMatch =", daysMatch)
-        
         let dateToPreview = possibleDate.toFormat("MMMM dd, yyyy")
         
-        if monthsMatch, daysMatch {
+        if userInputMatches(date: possibleDate) {
             previewBirthdate = dateToPreview
         } else {
             previewBirthdate = "\(dateToPreview)?"
@@ -214,6 +205,18 @@ struct ContentView: View {
             print("\(inputYear) is an invalid year")
             return .Invalid
         }
+    }
+    
+    private func userInputMatches(date: DateInRegion) -> Bool {
+        let justMonth = date.toFormat("MM")
+        let justDay = date.toFormat("dd")
+        print(justMonth, "/", justDay)
+        let monthsMatch = justMonth == inputMonth
+        let daysMatch = justDay == inputDay
+        print("monthsMatch =", monthsMatch)
+        print("daysMatch =", daysMatch)
+        
+        return monthsMatch && daysMatch
     }
 }
 
