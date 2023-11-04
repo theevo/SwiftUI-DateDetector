@@ -176,13 +176,16 @@ struct ContentView: View {
         if inputDay.isEmpty {
             return .Empty
         } else if inputDay.count == 2,
-                  (1...31).contains(Int(inputDay) ?? 0),
-                  monthValidity.isValid {
-            let newValue = inputMonth + inputDay
-            guard let possibleDate = newValue.toDate("MMdd"),
-                  userInputMatches(date: possibleDate)
-            else { return .Invalid }
-            return .Valid
+                  (1...31).contains(Int(inputDay) ?? 0) {
+            if monthValidity.isValid {
+                let newValue = inputMonth + inputDay
+                guard let possibleDate = newValue.toDate("MMdd"),
+                      userInputMatches(date: possibleDate)
+                else { return .Invalid }
+                return .Valid
+            } else {
+                return .Valid
+            }
         } else {
             print("\(inputDay) is an invalid day")
             return .Invalid
