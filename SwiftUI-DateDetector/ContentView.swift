@@ -45,7 +45,7 @@ struct ContentView: View {
     }
     
     private func advanceFocus() {
-        guard isValid() else { return }
+        guard canAdvance() else { return }
         
         switch focus {
         case .month:
@@ -66,14 +66,15 @@ struct ContentView: View {
         advanceFocus()
     }
     
-    private func isValid() -> Bool {
+    // TODO: - move this to View Model
+    private func canAdvance() -> Bool {
         switch focus {
         case .month:
-            return viewModel.validityOfMonth() == .Valid
+            return viewModel.monthValidity.isValid
         case .day:
-            return viewModel.validityOfDay() == .Valid
+            return viewModel.dayValidity.isValid
         case .year:
-            return viewModel.validityOfYear() == .Valid
+            return viewModel.yearValidity.isValid
         case .none:
             return false
         }
@@ -91,17 +92,17 @@ struct ContentView: View {
     var monthFieldStyle = DatePartStyle()
     var dayFieldStyle = DatePartStyle()
     var yearFieldStyle = DatePartStyle()
-    var monthValidityState: FieldValidity {
+    var monthValidity: FieldValidity {
         get {
             return validityOfMonth()
         }
     }
-    var dayValidityState: FieldValidity {
+    var dayValidity: FieldValidity {
         get {
             return validityOfDay()
         }
     }
-    var yearValidityState: FieldValidity {
+    var yearValidity: FieldValidity {
         get {
             return validityOfYear()
         }
@@ -132,46 +133,11 @@ struct ContentView: View {
     }
     
     func updateColors() {
-        monthFieldStyle = DatePartStyle(color: monthValidityState.color)
+        monthFieldStyle = DatePartStyle(color: monthValidity.color)
         
-        dayFieldStyle = DatePartStyle(color: dayValidityState.color)
+        dayFieldStyle = DatePartStyle(color: dayValidity.color)
         
-        yearFieldStyle = DatePartStyle(color: yearValidityState.color)
-    }
-    
-    func validityOfDay() -> DateViewModel.FieldValidity {
-        if inputDay.isEmpty {
-            return .Empty
-        } else if inputDay.count == 2,
-                  (1...31).contains(Int(inputDay) ?? 0) {
-            return .Valid
-        } else {
-            print("\(inputDay) is an invalid day")
-            return .Invalid
-        }
-    }
-    
-    func validityOfMonth() -> DateViewModel.FieldValidity {
-        if inputMonth.isEmpty {
-            return .Empty
-        } else if inputMonth.count == 2,
-                  (1...12).contains(Int(inputMonth) ?? 0) {
-            return .Valid
-        } else {
-            return .Invalid
-        }
-    }
-    
-    func validityOfYear() -> DateViewModel.FieldValidity {
-        if inputYear.isEmpty {
-            return .Empty
-        } else if inputYear.count == 4,
-                  Int(inputYear) ?? 0 > 0 {
-            return .Valid
-        } else {
-            print("\(inputYear) is an invalid year")
-            return .Invalid
-        }
+        yearFieldStyle = DatePartStyle(color: yearValidity.color)
     }
     
     // MARK: - Private
@@ -214,6 +180,41 @@ struct ContentView: View {
         
         previewBirthdate = possibleDate.toFormat("MMMM")
     }
+    
+    private func validityOfDay() -> DateViewModel.FieldValidity {
+        if inputDay.isEmpty {
+            return .Empty
+        } else if inputDay.count == 2,
+                  (1...31).contains(Int(inputDay) ?? 0) {
+            return .Valid
+        } else {
+            print("\(inputDay) is an invalid day")
+            return .Invalid
+        }
+    }
+    
+    private func validityOfMonth() -> DateViewModel.FieldValidity {
+        if inputMonth.isEmpty {
+            return .Empty
+        } else if inputMonth.count == 2,
+                  (1...12).contains(Int(inputMonth) ?? 0) {
+            return .Valid
+        } else {
+            return .Invalid
+        }
+    }
+    
+    private func validityOfYear() -> DateViewModel.FieldValidity {
+        if inputYear.isEmpty {
+            return .Empty
+        } else if inputYear.count == 4,
+                  Int(inputYear) ?? 0 > 0 {
+            return .Valid
+        } else {
+            print("\(inputYear) is an invalid year")
+            return .Invalid
+        }
+    }
 }
 
 extension DateViewModel {
@@ -229,6 +230,10 @@ extension DateViewModel {
             case .Invalid:
                 .red
             }
+        }
+        
+        var isValid: Bool {
+            self == .Valid
         }
     }
 }
