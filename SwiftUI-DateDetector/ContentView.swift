@@ -61,20 +61,9 @@ struct ContentView: View {
     }
     
     private func render() {
-        updateColors()
+        viewModel.updateColors()
         viewModel.previewDate()
         advanceFocus()
-    }
-    
-    func updateColors() {
-        viewModel.monthValidityState = viewModel.validityOfMonth()
-        viewModel.monthFieldStyle = DatePartStyle(color: viewModel.monthValidityState.color)
-        
-        viewModel.dayValidityState = viewModel.validityOfDay()
-        viewModel.dayFieldStyle = DatePartStyle(color: viewModel.dayValidityState.color)
-        
-        viewModel.yearValidityState = viewModel.validityOfYear()
-        viewModel.yearFieldStyle = DatePartStyle(color: viewModel.yearValidityState.color)
     }
     
     private func isValid() -> Bool {
@@ -128,6 +117,17 @@ struct ContentView: View {
         default:
             clearPreview()
         }
+    }
+    
+    func updateColors() {
+        monthValidityState = validityOfMonth()
+        monthFieldStyle = DatePartStyle(color: monthValidityState.color)
+        
+        dayValidityState = validityOfDay()
+        dayFieldStyle = DatePartStyle(color: dayValidityState.color)
+        
+        yearValidityState = validityOfYear()
+        yearFieldStyle = DatePartStyle(color: yearValidityState.color)
     }
     
     func validityOfDay() -> DateViewModel.FieldValidity {
