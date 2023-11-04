@@ -91,9 +91,21 @@ struct ContentView: View {
     var monthFieldStyle = DatePartStyle()
     var dayFieldStyle = DatePartStyle()
     var yearFieldStyle = DatePartStyle()
-    var monthValidityState = FieldValidity.Empty
-    var dayValidityState = FieldValidity.Empty
-    var yearValidityState = FieldValidity.Empty
+    var monthValidityState: FieldValidity {
+        get {
+            return validityOfMonth()
+        }
+    }
+    var dayValidityState: FieldValidity {
+        get {
+            return validityOfDay()
+        }
+    }
+    var yearValidityState: FieldValidity {
+        get {
+            return validityOfYear()
+        }
+    }
     private(set) var previewBirthdate: String = ""
     
     
@@ -120,13 +132,10 @@ struct ContentView: View {
     }
     
     func updateColors() {
-        monthValidityState = validityOfMonth()
         monthFieldStyle = DatePartStyle(color: monthValidityState.color)
         
-        dayValidityState = validityOfDay()
         dayFieldStyle = DatePartStyle(color: dayValidityState.color)
         
-        yearValidityState = validityOfYear()
         yearFieldStyle = DatePartStyle(color: yearValidityState.color)
     }
     
