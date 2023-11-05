@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		ACB81C262AF803E600E3F769 /* SwiftUI_DateDetector_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB81C252AF803E600E3F769 /* SwiftUI_DateDetector_Tests.swift */; };
+		ACB81C2D2AF804D600E3F769 /* DateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB81C2C2AF804D600E3F769 /* DateViewModel.swift */; };
 		ACBC4B1F2AE83557006F781D /* SwiftUI_DateDetectorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACBC4B1E2AE83557006F781D /* SwiftUI_DateDetectorApp.swift */; };
 		ACBC4B212AE83557006F781D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACBC4B202AE83557006F781D /* ContentView.swift */; };
 		ACBC4B232AE83558006F781D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ACBC4B222AE83558006F781D /* Assets.xcassets */; };
@@ -28,6 +29,7 @@
 /* Begin PBXFileReference section */
 		ACB81C232AF803E600E3F769 /* SwiftUI-DateDetector_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SwiftUI-DateDetector_Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACB81C252AF803E600E3F769 /* SwiftUI_DateDetector_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUI_DateDetector_Tests.swift; sourceTree = "<group>"; };
+		ACB81C2C2AF804D600E3F769 /* DateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateViewModel.swift; sourceTree = "<group>"; };
 		ACBC4B1B2AE83557006F781D /* SwiftUI-DateDetector.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SwiftUI-DateDetector.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACBC4B1E2AE83557006F781D /* SwiftUI_DateDetectorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUI_DateDetectorApp.swift; sourceTree = "<group>"; };
 		ACBC4B202AE83557006F781D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -86,6 +88,7 @@
 			isa = PBXGroup;
 			children = (
 				ACBC4B1E2AE83557006F781D /* SwiftUI_DateDetectorApp.swift */,
+				ACB81C2C2AF804D600E3F769 /* DateViewModel.swift */,
 				ACBC4B202AE83557006F781D /* ContentView.swift */,
 				ACBC4B222AE83558006F781D /* Assets.xcassets */,
 				ACBC4B242AE83558006F781D /* Preview Content */,
@@ -215,6 +218,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ACB81C2D2AF804D600E3F769 /* DateViewModel.swift in Sources */,
 				ACBC4B212AE83557006F781D /* ContentView.swift in Sources */,
 				ACBC4B1F2AE83557006F781D /* SwiftUI_DateDetectorApp.swift in Sources */,
 			);
