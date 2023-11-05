@@ -118,10 +118,10 @@ struct ContentView: View {
     
     func previewDate() {
         switch (validityOfMonth(), validityOfDay(), validityOfYear()) {
-        case (.Valid, .Empty, _),
+        case (.Valid, .Incomplete, _),
             (.Valid, .Invalid, _):
             previewMonthOnly()
-        case (.Valid, .Valid, .Empty),
+        case (.Valid, .Valid, .Incomplete),
             (.Valid, .Valid, .Invalid):
             previewMonthAndDay()
         case (.Valid, .Valid, .Valid):
@@ -174,7 +174,7 @@ struct ContentView: View {
     
     private func validityOfDay() -> DateViewModel.FieldValidity {
         if inputDay.isEmpty {
-            return .Empty
+            return .Incomplete
         } else if inputDay.count == 2,
                   (1...31).contains(Int(inputDay) ?? 0) {
             if monthValidity.isValid {
@@ -194,7 +194,7 @@ struct ContentView: View {
     
     private func validityOfMonth() -> DateViewModel.FieldValidity {
         if inputMonth.isEmpty {
-            return .Empty
+            return .Incomplete
         } else if inputMonth.count == 2,
                   (1...12).contains(Int(inputMonth) ?? 0) {
             return .Valid
@@ -205,7 +205,7 @@ struct ContentView: View {
     
     private func validityOfYear() -> DateViewModel.FieldValidity {
         if inputYear.isEmpty {
-            return .Empty
+            return .Incomplete
         } else if inputYear.count == 4,
                   Int(inputYear) ?? 0 > 0 {
             return .Valid
@@ -230,11 +230,11 @@ struct ContentView: View {
 
 extension DateViewModel {
     enum FieldValidity {
-        case Empty, Valid, Invalid
+        case Incomplete, Valid, Invalid
         
         var color: Color {
             switch self {
-            case .Empty:
+            case .Incomplete:
                 .secondary
             case .Valid:
                 .green
