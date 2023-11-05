@@ -141,6 +141,10 @@ struct ContentView: View {
     
     // MARK: - Private
     
+    private func isValidInput(str: String) -> Bool {
+        return str.isEmpty || DateViewModel.validCharacters.contains(str)
+    }
+    
     private func previewEntireDate() {
         let newValue = inputMonth + inputDay + inputYear
         guard newValue.count == 8,
@@ -173,6 +177,8 @@ struct ContentView: View {
     }
     
     private func validityOfDay() -> DateViewModel.FieldValidity {
+        guard isValidInput(str: inputDay) else { return .Invalid }
+        
         if inputDay.count < 2 {
             return .Incomplete
         } else if inputDay.count == 2,
@@ -193,6 +199,8 @@ struct ContentView: View {
     }
     
     private func validityOfMonth() -> DateViewModel.FieldValidity {
+        guard isValidInput(str: inputMonth) else { return .Invalid }
+        
         if inputMonth.count < 2 {
             return .Incomplete
         } else if inputMonth.count == 2,
@@ -204,6 +212,8 @@ struct ContentView: View {
     }
     
     private func validityOfYear() -> DateViewModel.FieldValidity {
+        guard isValidInput(str: inputYear) else { return .Invalid }
+        
         if inputYear.count < 4 {
             return .Incomplete
         } else if inputYear.count == 4,
@@ -229,6 +239,8 @@ struct ContentView: View {
 }
 
 extension DateViewModel {
+    static let validCharacters = "0123456789"
+    
     enum FieldValidity {
         case Incomplete, Valid, Invalid
         
