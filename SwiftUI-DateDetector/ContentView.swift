@@ -84,6 +84,19 @@ struct DatePartStyle: TextFieldStyle {
     }
 }
 
+extension DateViewModel.FieldValidity {
+    var color: Color {
+        switch self {
+        case .Incomplete:
+            .secondary
+        case .Valid:
+            .green
+        case .Invalid:
+            .red
+        }
+    }
+}
+
 #Preview {
     ContentView()
 }

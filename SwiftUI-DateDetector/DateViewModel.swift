@@ -5,7 +5,7 @@
 //  Created by Theo Vora on 11/5/23.
 //
 
-import SwiftUI
+import Foundation
 import SwiftDate
 
 @Observable class DateViewModel {
@@ -188,17 +188,6 @@ extension DateViewModel {
     
     enum FieldValidity {
         case Incomplete, Valid, Invalid
-        
-        var color: Color {
-            switch self {
-            case .Incomplete:
-                .secondary
-            case .Valid:
-                .green
-            case .Invalid:
-                .red
-            }
-        }
         
         var isValid: Bool {
             self == .Valid
