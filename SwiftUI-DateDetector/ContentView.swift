@@ -173,7 +173,7 @@ struct ContentView: View {
     }
     
     private func validityOfDay() -> DateViewModel.FieldValidity {
-        if inputDay.isEmpty {
+        if inputDay.count < 2 {
             return .Incomplete
         } else if inputDay.count == 2,
                   (1...31).contains(Int(inputDay) ?? 0) {
@@ -193,7 +193,7 @@ struct ContentView: View {
     }
     
     private func validityOfMonth() -> DateViewModel.FieldValidity {
-        if inputMonth.isEmpty {
+        if inputMonth.count < 2 {
             return .Incomplete
         } else if inputMonth.count == 2,
                   (1...12).contains(Int(inputMonth) ?? 0) {
@@ -204,7 +204,7 @@ struct ContentView: View {
     }
     
     private func validityOfYear() -> DateViewModel.FieldValidity {
-        if inputYear.isEmpty {
+        if inputYear.count < 4 {
             return .Incomplete
         } else if inputYear.count == 4,
                   Int(inputYear) ?? 0 > 0 {
