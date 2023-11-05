@@ -93,7 +93,7 @@ struct ContentView: View {
             return validityOfYear()
         }
     }
-    private(set) var previewBirthdate: String = ""
+    private(set) var previewBirthdate: String = " "
     
     
     // MARK: - Public Methods
@@ -113,7 +113,7 @@ struct ContentView: View {
     
     func clearPreview() {
         print("clearing '\(previewBirthdate)'")
-        previewBirthdate = ""
+        previewBirthdate = " "
     }
     
     func previewDate() {
