@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		ACB81C262AF803E600E3F769 /* SwiftUI_DateDetector_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB81C252AF803E600E3F769 /* SwiftUI_DateDetector_Tests.swift */; };
 		ACBC4B1F2AE83557006F781D /* SwiftUI_DateDetectorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACBC4B1E2AE83557006F781D /* SwiftUI_DateDetectorApp.swift */; };
 		ACBC4B212AE83557006F781D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACBC4B202AE83557006F781D /* ContentView.swift */; };
 		ACBC4B232AE83558006F781D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ACBC4B222AE83558006F781D /* Assets.xcassets */; };
@@ -14,7 +15,19 @@
 		ACBC4B2E2AE83A6A006F781D /* SwiftDate in Frameworks */ = {isa = PBXBuildFile; productRef = ACBC4B2D2AE83A6A006F781D /* SwiftDate */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		ACB81C272AF803E600E3F769 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = ACBC4B132AE83557006F781D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = ACBC4B1A2AE83557006F781D;
+			remoteInfo = "SwiftUI-DateDetector";
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		ACB81C232AF803E600E3F769 /* SwiftUI-DateDetector_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SwiftUI-DateDetector_Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		ACB81C252AF803E600E3F769 /* SwiftUI_DateDetector_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUI_DateDetector_Tests.swift; sourceTree = "<group>"; };
 		ACBC4B1B2AE83557006F781D /* SwiftUI-DateDetector.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SwiftUI-DateDetector.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACBC4B1E2AE83557006F781D /* SwiftUI_DateDetectorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUI_DateDetectorApp.swift; sourceTree = "<group>"; };
 		ACBC4B202AE83557006F781D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -24,6 +37,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		ACB81C202AF803E600E3F769 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		ACBC4B182AE83557006F781D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -35,11 +55,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		ACB81C242AF803E600E3F769 /* SwiftUI-DateDetector_Tests */ = {
+			isa = PBXGroup;
+			children = (
+				ACB81C252AF803E600E3F769 /* SwiftUI_DateDetector_Tests.swift */,
+			);
+			path = "SwiftUI-DateDetector_Tests";
+			sourceTree = "<group>";
+		};
 		ACBC4B122AE83557006F781D = {
 			isa = PBXGroup;
 			children = (
 				ACC7657A2AE9B26200FEC00C /* README.md */,
 				ACBC4B1D2AE83557006F781D /* SwiftUI-DateDetector */,
+				ACB81C242AF803E600E3F769 /* SwiftUI-DateDetector_Tests */,
 				ACBC4B1C2AE83557006F781D /* Products */,
 			);
 			sourceTree = "<group>";
@@ -48,6 +77,7 @@
 			isa = PBXGroup;
 			children = (
 				ACBC4B1B2AE83557006F781D /* SwiftUI-DateDetector.app */,
+				ACB81C232AF803E600E3F769 /* SwiftUI-DateDetector_Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -74,6 +104,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		ACB81C222AF803E600E3F769 /* SwiftUI-DateDetector_Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ACB81C2B2AF803E600E3F769 /* Build configuration list for PBXNativeTarget "SwiftUI-DateDetector_Tests" */;
+			buildPhases = (
+				ACB81C1F2AF803E600E3F769 /* Sources */,
+				ACB81C202AF803E600E3F769 /* Frameworks */,
+				ACB81C212AF803E600E3F769 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				ACB81C282AF803E600E3F769 /* PBXTargetDependency */,
+			);
+			name = "SwiftUI-DateDetector_Tests";
+			productName = "SwiftUI-DateDetector_Tests";
+			productReference = ACB81C232AF803E600E3F769 /* SwiftUI-DateDetector_Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		ACBC4B1A2AE83557006F781D /* SwiftUI-DateDetector */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = ACBC4B292AE83558006F781D /* Build configuration list for PBXNativeTarget "SwiftUI-DateDetector" */;
@@ -104,6 +152,10 @@
 				LastSwiftUpdateCheck = 1500;
 				LastUpgradeCheck = 1500;
 				TargetAttributes = {
+					ACB81C222AF803E600E3F769 = {
+						CreatedOnToolsVersion = 15.0;
+						TestTargetID = ACBC4B1A2AE83557006F781D;
+					};
 					ACBC4B1A2AE83557006F781D = {
 						CreatedOnToolsVersion = 15.0;
 					};
@@ -126,11 +178,19 @@
 			projectRoot = "";
 			targets = (
 				ACBC4B1A2AE83557006F781D /* SwiftUI-DateDetector */,
+				ACB81C222AF803E600E3F769 /* SwiftUI-DateDetector_Tests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		ACB81C212AF803E600E3F769 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		ACBC4B192AE83557006F781D /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -143,6 +203,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		ACB81C1F2AF803E600E3F769 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ACB81C262AF803E600E3F769 /* SwiftUI_DateDetector_Tests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		ACBC4B172AE83557006F781D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -154,7 +222,51 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		ACB81C282AF803E600E3F769 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = ACBC4B1A2AE83557006F781D /* SwiftUI-DateDetector */;
+			targetProxy = ACB81C272AF803E600E3F769 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		ACB81C292AF803E600E3F769 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 6QY69PUF72;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.joybending.SwiftUI-DateDetector-Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SwiftUI-DateDetector.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/SwiftUI-DateDetector";
+			};
+			name = Debug;
+		};
+		ACB81C2A2AF803E600E3F769 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 6QY69PUF72;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.joybending.SwiftUI-DateDetector-Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SwiftUI-DateDetector.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/SwiftUI-DateDetector";
+			};
+			name = Release;
+		};
 		ACBC4B272AE83558006F781D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -335,6 +447,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		ACB81C2B2AF803E600E3F769 /* Build configuration list for PBXNativeTarget "SwiftUI-DateDetector_Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ACB81C292AF803E600E3F769 /* Debug */,
+				ACB81C2A2AF803E600E3F769 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		ACBC4B162AE83557006F781D /* Build configuration list for PBXProject "SwiftUI-DateDetector" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
