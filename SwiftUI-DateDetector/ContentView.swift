@@ -30,6 +30,7 @@ struct ContentView: View {
                         render()
                     }
                 TextField("YYYY", text: $viewModel.inputYear)
+                    .frame(width: 114)
                     .focused($focus, equals: .year)
                     .textFieldStyle(viewModel.yearFieldStyle)
                     .onChange(of: viewModel.inputYear) {
@@ -142,7 +143,15 @@ struct ContentView: View {
     // MARK: - Private
     
     private func isValidInput(str: String) -> Bool {
-        return str.isEmpty || DateViewModel.validCharacters.contains(str)
+        if str.isEmpty { return true }
+        
+        for char in str {
+            if !DateViewModel.validCharacters.contains(char) {
+                return false
+            }
+        }
+        
+        return true
     }
     
     private func previewEntireDate() {
