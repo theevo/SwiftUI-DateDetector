@@ -26,6 +26,30 @@ final class DateViewModelTests: XCTestCase {
         XCTAssertTrue(vm.yearValidity.isValid)
     }
     
+    func test_month00_isNotValid() {
+        let vm = buildDateVM("00312000")
+        
+        XCTAssertFalse(vm.monthValidity.isValid)
+        XCTAssertTrue(vm.dayValidity.isValid)
+        XCTAssertTrue(vm.yearValidity.isValid)
+    }
+    
+    func test_day32_isNotValid() {
+        let vm = buildDateVM("05322000")
+        
+        XCTAssertTrue(vm.monthValidity.isValid)
+        XCTAssertFalse(vm.dayValidity.isValid)
+        XCTAssertTrue(vm.yearValidity.isValid)
+    }
+    
+    func test_day00_isNotValid() {
+        let vm = buildDateVM("01002000")
+        
+        XCTAssertTrue(vm.monthValidity.isValid)
+        XCTAssertFalse(vm.dayValidity.isValid)
+        XCTAssertTrue(vm.yearValidity.isValid)
+    }
+    
     // MARK: - Helpers
     
     func buildDateVM(_ str: String) -> DateViewModel {
