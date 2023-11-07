@@ -15,13 +15,13 @@ final class DateViewModelTests: XCTestCase {
         
         XCTAssertTrue(vm.monthValidity.isValid)
         XCTAssertTrue(vm.dayValidity.isValid)
-        XCTAssertFalse(vm.yearValidity.isValid)
+        XCTAssertTrue(vm.yearValidity.notValid)
     }
     
     func test_month13_isNotValid() {
         let vm = buildDateVM("13312000")
         
-        XCTAssertFalse(vm.monthValidity.isValid)
+        XCTAssertTrue(vm.monthValidity.notValid)
         XCTAssertTrue(vm.dayValidity.isValid)
         XCTAssertTrue(vm.yearValidity.isValid)
     }
@@ -29,7 +29,7 @@ final class DateViewModelTests: XCTestCase {
     func test_month00_isNotValid() {
         let vm = buildDateVM("00312000")
         
-        XCTAssertFalse(vm.monthValidity.isValid)
+        XCTAssertTrue(vm.monthValidity.notValid)
         XCTAssertTrue(vm.dayValidity.isValid)
         XCTAssertTrue(vm.yearValidity.isValid)
     }
@@ -38,7 +38,7 @@ final class DateViewModelTests: XCTestCase {
         let vm = buildDateVM("05322000")
         
         XCTAssertTrue(vm.monthValidity.isValid)
-        XCTAssertFalse(vm.dayValidity.isValid)
+        XCTAssertTrue(vm.dayValidity.notValid)
         XCTAssertTrue(vm.yearValidity.isValid)
     }
     
@@ -46,7 +46,7 @@ final class DateViewModelTests: XCTestCase {
         let vm = buildDateVM("01002000")
         
         XCTAssertTrue(vm.monthValidity.isValid)
-        XCTAssertFalse(vm.dayValidity.isValid)
+        XCTAssertTrue(vm.dayValidity.notValid)
         XCTAssertTrue(vm.yearValidity.isValid)
     }
     

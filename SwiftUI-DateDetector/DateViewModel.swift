@@ -192,5 +192,9 @@ extension DateViewModel {
         var isValid: Bool {
             self == .Valid
         }
+        
+        var notValid: Bool {
+            !isValid
+        }
     }
 }
