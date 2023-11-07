@@ -21,4 +21,16 @@ final class DateViewModelTests: XCTestCase {
         XCTAssertTrue(vm.dayValidity.isValid)
         XCTAssertFalse(vm.yearValidity.isValid)
     }
+    
+    func test_month13_isNotValid() {
+        let vm = DateViewModel()
+        
+        vm.inputMonth = "13"
+        vm.inputDay = "31"
+        vm.inputYear = "2000"
+        
+        XCTAssertFalse(vm.monthValidity.isValid)
+        XCTAssertTrue(vm.dayValidity.isValid)
+        XCTAssertTrue(vm.yearValidity.isValid)
+    }
 }
