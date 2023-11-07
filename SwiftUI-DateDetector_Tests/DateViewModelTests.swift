@@ -92,6 +92,17 @@ final class DateViewModelTests: XCTestCase {
         XCTAssertTrue(vm.previewBirthdate == expectation, "Expected \(expectation) but received this instead: \(vm.previewBirthdate)")
     }
     
+    func test_month04day30_previewShowsApril30() {
+        let vm = DateViewModel()
+        vm.inputMonth = "04"
+        vm.inputDay = "30"
+        vm.previewDate()
+        
+        let expectation = "April 30"
+        
+        XCTAssertTrue(vm.previewBirthdate == expectation, "Expected \(expectation) but received this instead: \(vm.previewBirthdate)")
+    }
+    
     // MARK: - Helpers
     
     func buildDateVM(_ str: String) -> DateViewModel {
