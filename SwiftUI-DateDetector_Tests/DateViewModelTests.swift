@@ -70,10 +70,10 @@ final class DateViewModelTests: XCTestCase {
     
     func test_invalidLeapYearDate_notValid() {
         let vm = buildDateVM("02291999")
-        let expectation = "February 29, 1999"
+        let expectation = "February"
         vm.previewDate()
         
-        XCTAssertFalse(vm.previewBirthdate == expectation, "Expected \(expectation) but received this instead: \(vm.previewBirthdate)")
+        XCTAssertTrue(vm.previewBirthdate == expectation, "Expected \(expectation) but received this instead: \(vm.previewBirthdate)")
     }
     
     func test_april31_isNotValid() {

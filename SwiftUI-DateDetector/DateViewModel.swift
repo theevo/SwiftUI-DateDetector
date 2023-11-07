@@ -101,7 +101,7 @@ import SwiftDate
         if userInputMatches(date: possibleDate) {
             previewBirthdate = dateToPreview
         } else {
-            previewBirthdate = "\(dateToPreview)?"
+            previewMonthOnly()
         }
     }
     
