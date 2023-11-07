@@ -11,11 +11,7 @@ import XCTest
 final class DateViewModelTests: XCTestCase {
 
     func test_yearZero_isNotValid() {
-        let vm = DateViewModel()
-        
-        vm.inputMonth = "12"
-        vm.inputDay = "31"
-        vm.inputYear = "0000"
+        let vm = buildDateVM("12310000")
         
         XCTAssertTrue(vm.monthValidity.isValid)
         XCTAssertTrue(vm.dayValidity.isValid)
@@ -23,14 +19,35 @@ final class DateViewModelTests: XCTestCase {
     }
     
     func test_month13_isNotValid() {
-        let vm = DateViewModel()
-        
-        vm.inputMonth = "13"
-        vm.inputDay = "31"
-        vm.inputYear = "2000"
+        let vm = buildDateVM("13312000")
         
         XCTAssertFalse(vm.monthValidity.isValid)
         XCTAssertTrue(vm.dayValidity.isValid)
         XCTAssertTrue(vm.yearValidity.isValid)
+    }
+    
+    // MARK: - Helpers
+    
+    func buildDateVM(_ str: String) -> DateViewModel {
+        let regex = #/
+            (?<month> \d{2})
+            (?<day> \d{2})
+            (?<year> \d{4})
+        /#
+        
+        if let match = str.firstMatch(of: regex) {
+            let month = String(match.month)
+            let day = String(match.day)
+            let year = String(match.year)
+            
+            let vm = DateViewModel()
+            vm.inputMonth = month
+            vm.inputDay = day
+            vm.inputYear = year
+            
+            return vm
+        } else {
+            fatalError("Invalid date passed as input. Must be 8 characters in length with the format MMDDYYYY")
+        }
     }
 }
