@@ -15,6 +15,7 @@ struct ContentView: View {
         List {
             Text(viewModel.previewBirthdate)
                 .font(.largeTitle)
+                .animation(.spring, value: viewModel.previewBirthdate)
             HStack {
                 TextField("MM", text: $viewModel.inputMonth)
                     .focused($focus, equals: .month)
