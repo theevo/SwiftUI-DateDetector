@@ -35,7 +35,7 @@ import SwiftDate
     
     // MARK: - Public Methods
     
-    public func canAdvance(from focus: ContentView.FocusedField?) -> Bool {
+    public func canAdvance(from focus: DateEntryView.FocusedField?) -> Bool {
         switch focus {
         case .month:
             return monthValidity.isValid

@@ -8,8 +8,16 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var viewModel = DateViewModel()
+    
+    var body: some View {
+        DateEntryView(viewModel: viewModel)
+    }
+}
+
+struct DateEntryView: View {
     @FocusState private var focus: FocusedField?
-    @Bindable private var viewModel = DateViewModel()
+    @Bindable var viewModel: DateViewModel
     
     var body: some View {
         List {
