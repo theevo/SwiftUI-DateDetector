@@ -30,10 +30,23 @@ import SwiftDate
             return validityOfYear()
         }
     }
+    var isValid: Bool {
+        yearValidity == .Valid && monthValidity == .Valid && dayValidity == .Valid
+    }
     private(set) var previewBirthdate: String = " "
     
     
     // MARK: - Public Methods
+    
+    public convenience init(
+        month inputMonth: String,
+        day inputDay: String,
+        year inputYear: String) {
+        self.init()
+        self.inputMonth = inputMonth
+        self.inputDay = inputDay
+        self.inputYear = inputYear
+    }
     
     public func canAdvance(from focus: DateEntryView.FocusedField?) -> Bool {
         switch focus {

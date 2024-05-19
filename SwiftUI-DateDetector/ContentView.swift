@@ -10,11 +10,35 @@ import SwiftUI
 struct ContentView: View {
     @State var viewModel = DateViewModel()
     
+//    @State var isValid: Bool = viewModel.isValid
+    
     var body: some View {
-        DateEntryView(viewModel: viewModel)
+        VStack {
+            DateEntryView(viewModel: viewModel)
+            if viewModel.isValid {
+                Button("Continue") {
+                    print("We venture forth, travellers!")
+                }
+                .buttonStyle(BlueButton())
+            }
+        }
+    }
+}
+
+struct BlueButton: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .padding()
+            .background(Color(red: 0, green: 0, blue: 1.0, opacity: 0.72))
+            .foregroundStyle(.white)
+            .clipShape(Capsule())
     }
 }
 
 #Preview {
-    ContentView()
+    ContentView(viewModel: DateViewModel(month: "01", day: "03", year: "2012"))
+}
+
+#Preview {
+    ContentView(viewModel: DateViewModel())
 }
