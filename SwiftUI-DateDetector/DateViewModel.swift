@@ -162,7 +162,7 @@ import SwiftDate
         if inputYear.count < 4 {
             return .Incomplete
         } else if inputYear.count == 4,
-                  Int(inputYear) ?? 0 > 0 {
+                  Int(inputYear) ?? 0 >= 0 {
             return .Valid
         } else {
             print("\(inputYear) is an invalid year")

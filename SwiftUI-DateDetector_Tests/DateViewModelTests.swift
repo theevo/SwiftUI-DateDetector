@@ -10,10 +10,10 @@ import XCTest
 
 final class DateViewModelTests: XCTestCase {
 
-    func test_yearZero_isNotValid() {
+    func test_yearZero_isValid() {
         let vm = buildDateVM("12310000")
         
-        XCTAssertTrue(vm.yearValidity.notValid)
+        XCTAssertTrue(vm.yearValidity.isValid)
     }
     
     func test_month13_isNotValid() {
