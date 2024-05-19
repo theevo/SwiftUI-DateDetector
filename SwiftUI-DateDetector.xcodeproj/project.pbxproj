@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		27D0A89D2BFA512A00A418FB /* DateEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D0A89C2BFA512A00A418FB /* DateEntryView.swift */; };
 		AC387A892AFA089F00C60E4C /* DateValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC387A882AFA089F00C60E4C /* DateValidator.swift */; };
 		AC387A8B2AFA097600C60E4C /* DateValidatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC387A8A2AFA097600C60E4C /* DateValidatorTests.swift */; };
 		ACB81C2D2AF804D600E3F769 /* DateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB81C2C2AF804D600E3F769 /* DateViewModel.swift */; };
@@ -29,6 +30,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		27D0A89C2BFA512A00A418FB /* DateEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateEntryView.swift; sourceTree = "<group>"; };
 		AC387A882AFA089F00C60E4C /* DateValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateValidator.swift; sourceTree = "<group>"; };
 		AC387A8A2AFA097600C60E4C /* DateValidatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateValidatorTests.swift; sourceTree = "<group>"; };
 		ACB81C232AF803E600E3F769 /* SwiftUI-DateDetector_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SwiftUI-DateDetector_Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -96,6 +98,7 @@
 				ACB81C2C2AF804D600E3F769 /* DateViewModel.swift */,
 				AC387A882AFA089F00C60E4C /* DateValidator.swift */,
 				ACBC4B202AE83557006F781D /* ContentView.swift */,
+				27D0A89C2BFA512A00A418FB /* DateEntryView.swift */,
 				ACBC4B222AE83558006F781D /* Assets.xcassets */,
 				ACBC4B242AE83558006F781D /* Preview Content */,
 			);
@@ -228,6 +231,7 @@
 				ACB81C2D2AF804D600E3F769 /* DateViewModel.swift in Sources */,
 				ACBC4B212AE83557006F781D /* ContentView.swift in Sources */,
 				AC387A892AFA089F00C60E4C /* DateValidator.swift in Sources */,
+				27D0A89D2BFA512A00A418FB /* DateEntryView.swift in Sources */,
 				ACBC4B1F2AE83557006F781D /* SwiftUI_DateDetectorApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
