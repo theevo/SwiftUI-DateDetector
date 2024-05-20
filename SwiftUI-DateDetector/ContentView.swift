@@ -9,9 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @State var viewModel = DateViewModel()
-    
-//    @State var isValid: Bool = viewModel.isValid
-    
+        
     var body: some View {
         VStack {
             DateEntryView(viewModel: viewModel)
