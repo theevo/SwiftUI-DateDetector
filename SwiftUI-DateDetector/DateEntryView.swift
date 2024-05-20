@@ -12,36 +12,34 @@ struct DateEntryView: View {
     @Bindable var viewModel: DateViewModel
     
     var body: some View {
-        List {
-            Text(viewModel.previewBirthdate)
-                .font(.largeTitle)
-                .animation(.spring, value: viewModel.previewBirthdate)
-            HStack {
-                TextField("MM", text: $viewModel.inputMonth)
-                    .focused($focus, equals: .month)
-                    .textFieldStyle(viewModel.monthFieldStyle)
-                    .onChange(of: viewModel.inputMonth) {
-                        render()
-                    }
-                TextField("DD", text: $viewModel.inputDay)
-                    .focused($focus, equals: .day)
-                    .textFieldStyle(viewModel.dayFieldStyle)
-                    .onChange(of: viewModel.inputDay) {
-                        render()
-                    }
-                TextField("YYYY", text: $viewModel.inputYear)
-                    .frame(width: 114)
-                    .focused($focus, equals: .year)
-                    .textFieldStyle(viewModel.yearFieldStyle)
-                    .onChange(of: viewModel.inputYear) {
-                        render()
-                    }
-            }
-            HStack {
-                Spacer()
-                Text("Enter your birthdate")
-                Spacer()
-            }
+        Text(viewModel.previewBirthdate)
+            .font(.largeTitle)
+            .animation(.spring, value: viewModel.previewBirthdate)
+        HStack {
+            TextField("MM", text: $viewModel.inputMonth)
+                .focused($focus, equals: .month)
+                .textFieldStyle(viewModel.monthFieldStyle)
+                .onChange(of: viewModel.inputMonth) {
+                    render()
+                }
+            TextField("DD", text: $viewModel.inputDay)
+                .focused($focus, equals: .day)
+                .textFieldStyle(viewModel.dayFieldStyle)
+                .onChange(of: viewModel.inputDay) {
+                    render()
+                }
+            TextField("YYYY", text: $viewModel.inputYear)
+                .frame(width: 114)
+                .focused($focus, equals: .year)
+                .textFieldStyle(viewModel.yearFieldStyle)
+                .onChange(of: viewModel.inputYear) {
+                    render()
+                }
+        }
+        HStack {
+            Spacer()
+            Text("Enter your birthdate")
+            Spacer()
         }
     }
     
