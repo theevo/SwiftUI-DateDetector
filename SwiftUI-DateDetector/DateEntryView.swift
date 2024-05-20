@@ -36,6 +36,9 @@ struct DateEntryView: View {
                     render()
                 }
         }
+        .onAppear(perform: {
+            focus = .month
+        })
         HStack {
             Spacer()
             Text("Enter your birthdate")
