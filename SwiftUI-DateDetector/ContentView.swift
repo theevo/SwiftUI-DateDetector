@@ -15,7 +15,7 @@ struct ContentView: View {
             DateEntryView(viewModel: viewModel)
             if viewModel.isValid {
                 Button("Continue") {
-                    print("We venture forth, travellers!")
+                    print("Continue button pressed!")
                 }
                 .buttonStyle(BlueButton())
             }
