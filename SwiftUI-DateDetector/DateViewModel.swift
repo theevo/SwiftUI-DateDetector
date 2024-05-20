@@ -62,7 +62,6 @@ import SwiftDate
     }
     
     func clearPreview() {
-        print("clearing '\(previewBirthdate)'")
         previewBirthdate = " "
     }
     
@@ -151,7 +150,6 @@ import SwiftDate
                 return .Valid
             }
         } else {
-            print("\(inputDay) is an invalid day")
             return .Invalid
         }
     }
@@ -178,7 +176,6 @@ import SwiftDate
                   Int(inputYear) ?? 0 >= 0 {
             return .Valid
         } else {
-            print("\(inputYear) is an invalid year")
             return .Invalid
         }
     }
@@ -186,12 +183,8 @@ import SwiftDate
     private func userInputMatches(date: DateInRegion) -> Bool {
         let justMonth = date.toFormat("MM")
         let justDay = date.toFormat("dd")
-        print(justMonth, "/", justDay)
         let monthsMatch = justMonth == inputMonth
         let daysMatch = justDay == inputDay
-        print("monthsMatch =", monthsMatch)
-        print("daysMatch =", daysMatch)
-        
         return monthsMatch && daysMatch
     }
 }
