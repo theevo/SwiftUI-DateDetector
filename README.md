@@ -18,6 +18,7 @@ Let's type in our dates rather than spin 3 wheels.
 
 - February 29 on non-leap years are not rendering correctly. Currently if you enter 02/29/2001, the app determines that 02 is a valid month, 29 is a valid day, and 2001 is a valid year and coloring all 3 TextFields green. The preview - correctly - only shows only "February" - no day, no year - which to me is the safest thing to say is valid. Which should fields should be red? The day or the year? Or both?
 - SwiftDate has its own date validation. my app cannot accurately determine if a February 29, 2001. Is there a method I can call to validate a date and have it tell me which parts are invalid? I've been getting by with just `toFormat(:)`; there must be more.
+- I want to optionally declare a parameter to `DateViewModel`: `range: (from: Date, to: Date)`. Example: limit the range of accepted dates from Feb 11, 1804 to Jan 29, 2044. Valided dates outside of this range could still render a preview of the date, but disallow the ability to continue in the app. Perhaps the user could receive a helpful message like, "our data set only includes dates from this range: <range here>. please choose a date within the range."
 
 ## Date Validation
 
